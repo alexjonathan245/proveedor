@@ -1,0 +1,1503 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Control de Proveedores - Santa Priscila</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #1a365d;
+            --primary-light: #2c5282;
+            --primary-dark: #1a365d;
+            --secondary-color: #3182ce;
+            --accent-color: #4299e1;
+            --success-color: #38a169;
+            --warning-color: #d69e2e;
+            --danger-color: #e53e3e;
+            --light-bg: #f7fafc;
+            --dark-bg: #1a365d;
+            --card-bg: #ffffff;
+            --dark-text: #2d3748;
+            --light-text: #f7fafc;
+            --muted-text: #718096;
+            --border-color: #e2e8f0;
+            --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.08);
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+            --shadow-xl: 0 16px 32px rgba(0, 0, 0, 0.15);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background: linear-gradient(135deg, #1a365d 0%, #2c5282 25%, #3182ce 50%, #4299e1 75%, #63b3ed 100%);
+            background-attachment: fixed;
+            color: var(--dark-text);
+            line-height: 1.6;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="white" fill-opacity="0.02"/><path d="M0 0L100 100M100 0L0 100" stroke="white" stroke-width="0.5" stroke-opacity="0.1"/></svg>');
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-color) 50%, var(--secondary-color) 100%);
+            color: var(--light-text);
+            padding: 15px 0;
+            box-shadow: var(--shadow-lg);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            animation: slideDown 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+
+        header img {
+            height: 50px;
+            margin-right: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            transition: var(--transition);
+            background: white;
+            padding: 5px;
+        }
+
+        header img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(18px, 4vw, 28px);
+            font-weight: 600;
+            letter-spacing: -0.5px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 10px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: var(--transition);
+            font-size: 14px;
+            backdrop-filter: blur(10px);
+            text-decoration: none;
+            margin-top: 5px;
+        }
+
+        .btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .btn i {
+            margin-right: 8px;
+        }
+
+        main {
+            padding: 30px 0;
+            animation: fadeIn 0.8s ease;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
+            border: 1px solid var(--border-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border-color);
+            flex-wrap: wrap;
+        }
+
+        .card-header i {
+            font-size: 24px;
+            margin-right: 15px;
+            color: var(--primary-color);
+            background: rgba(26, 54, 93, 0.1);
+            padding: 10px;
+            border-radius: 12px;
+        }
+
+        h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(20px, 4vw, 24px);
+            color: var(--dark-text);
+            font-weight: 600;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--dark-text);
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
+            font-size: 16px;
+            transition: var(--transition);
+            background: var(--light-bg);
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        input:focus, select:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(26, 54, 93, 0.1);
+            background: white;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            font-size: 16px;
+            box-shadow: var(--shadow-md);
+            font-family: 'Montserrat', sans-serif;
+            margin-top: 10px;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary-color));
+        }
+
+        .btn-primary i {
+            margin-right: 10px;
+        }
+
+        .info-box {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #f7fafc, #edf2f7);
+            border-left: 4px solid var(--primary-color);
+            display: none;
+            animation: slideIn 0.5s ease;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .info-row {
+            display: flex;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            flex-wrap: wrap;
+        }
+
+        .info-row:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .info-label {
+            font-weight: 600;
+            min-width: 120px;
+            color: var(--primary-color);
+            font-size: 14px;
+        }
+
+        .alert {
+            padding: 15px;
+            margin-top: 15px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .alert-warning {
+            background: linear-gradient(135deg, #fffdf7, #fef5e7);
+            color: #856404;
+            border-left: 4px solid var(--warning-color);
+        }
+
+        .alert i {
+            margin-right: 12px;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .divider {
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--border-color), transparent);
+            margin: 30px 0;
+            position: relative;
+        }
+
+        .divider::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 20px;
+            background: linear-gradient(135deg, #1a365d 0%, #2c5282 25%, #3182ce 50%, #4299e1 75%, #63b3ed 100%);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 2000;
+            animation: fadeIn 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background: white;
+            width: 95%;
+            max-width: 500px;
+            margin: 80px auto;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: var(--shadow-xl);
+            animation: slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid var(--border-color);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border-color);
+            flex-wrap: wrap;
+        }
+
+        .modal-header h2 {
+            margin: 0;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            font-size: clamp(18px, 4vw, 22px);
+        }
+
+        .modal-header h2 i {
+            margin-right: 12px;
+            background: rgba(26, 54, 93, 0.1);
+            padding: 8px;
+            border-radius: 10px;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--muted-text);
+            transition: var(--transition);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .close-btn:hover {
+            color: var(--danger-color);
+            background: rgba(229, 62, 62, 0.1);
+            transform: rotate(90deg);
+        }
+
+        .admin-panel {
+            display: none;
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: var(--shadow-lg);
+            margin-top: 30px;
+            animation: slideIn 0.5s ease;
+            border: 1px solid var(--border-color);
+        }
+
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .admin-header h2 {
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            font-size: clamp(18px, 4vw, 22px);
+            flex: 1;
+        }
+
+        .admin-header h2 i {
+            margin-right: 12px;
+            background: rgba(26, 54, 93, 0.1);
+            padding: 10px;
+            border-radius: 12px;
+        }
+
+        .admin-header .btn {
+            background: linear-gradient(135deg, var(--danger-color), #c53030);
+            border: 1px solid rgba(229, 62, 62, 0.3);
+            flex-shrink: 0;
+            margin-top: 0;
+        }
+
+        .admin-header .btn:hover {
+            background: linear-gradient(135deg, #c53030, var(--danger-color));
+            border-color: rgba(229, 62, 62, 0.5);
+        }
+
+        .provider-list {
+            margin-top: 20px;
+            max-height: 400px;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+
+        .provider-list::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .provider-list::-webkit-scrollbar-track {
+            background: var(--light-bg);
+            border-radius: 10px;
+        }
+
+        .provider-list::-webkit-scrollbar-thumb {
+            background: var(--primary-color);
+            border-radius: 10px;
+        }
+
+        .provider-item {
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            background: linear-gradient(135deg, #f7fafc, #ffffff);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: var(--transition);
+            border: 1px solid var(--border-color);
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .provider-item:hover {
+            transform: translateX(5px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--primary-color);
+        }
+
+        .provider-info {
+            flex-grow: 1;
+            min-width: 200px;
+        }
+
+        .provider-status {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+        }
+
+        .status-authorized {
+            background: linear-gradient(135deg, rgba(56, 161, 105, 0.15), rgba(56, 161, 105, 0.05));
+            color: var(--success-color);
+            border: 1px solid rgba(56, 161, 105, 0.2);
+        }
+
+        .status-unauthorized {
+            background: linear-gradient(135deg, rgba(229, 62, 62, 0.15), rgba(229, 62, 62, 0.05));
+            color: var(--danger-color);
+            border: 1px solid rgba(229, 62, 62, 0.2);
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            left: 20px;
+            padding: 15px 20px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: var(--shadow-lg);
+            display: none;
+            align-items: center;
+            z-index: 3000;
+            animation: slideInRight 0.5s ease;
+            border-left: 4px solid var(--success-color);
+            max-width: none;
+        }
+
+        .notification i {
+            margin-right: 12px;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .notification.success {
+            border-left-color: var(--success-color);
+        }
+
+        .notification.success i {
+            color: var(--success-color);
+        }
+
+        .notification.error {
+            border-left-color: var(--danger-color);
+        }
+
+        .notification.error i {
+            color: var(--danger-color);
+        }
+
+        .tabs {
+            display: flex;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--border-color);
+            background: var(--light-bg);
+            border-radius: 12px 12px 0 0;
+            padding: 0 5px;
+            overflow-x: auto;
+        }
+
+        .tab {
+            padding: 12px 16px;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: var(--transition);
+            font-weight: 500;
+            border-radius: 8px 8px 0 0;
+            margin: 0 2px;
+            white-space: nowrap;
+            font-size: 14px;
+        }
+
+        .tab:hover {
+            background: rgba(26, 54, 93, 0.05);
+        }
+
+        .tab.active {
+            border-bottom: 3px solid var(--primary-color);
+            color: var(--primary-color);
+            background: white;
+            font-weight: 600;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 20px;
+            background: white;
+            border-radius: 0 0 12px 12px;
+            border: 1px solid var(--border-color);
+            border-top: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, white, #f7fafc);
+            padding: 20px;
+            border-radius: 16px;
+            box-shadow: var(--shadow-md);
+            text-align: center;
+            transition: var(--transition);
+            border: 1px solid var(--border-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .stat-card i {
+            font-size: 28px;
+            margin-bottom: 12px;
+            color: var(--primary-color);
+            background: rgba(26, 54, 93, 0.1);
+            width: 60px;
+            height: 60px;
+            line-height: 60px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .stat-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--dark-text);
+            margin-bottom: 5px;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: var(--muted-text);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 500;
+        }
+
+        .provider-section {
+            margin-bottom: 25px;
+        }
+
+        .provider-section h3 {
+            color: var(--dark-text);
+            margin-bottom: 15px;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+        }
+
+        .provider-section h3 i {
+            margin-right: 10px;
+            color: var(--primary-color);
+        }
+
+        .provider-section.authorized h3 i {
+            color: var(--success-color);
+        }
+
+        .provider-section.unauthorized h3 i {
+            color: var(--danger-color);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(-30px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes slideInRight {
+            from { transform: translateX(30px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        /* Media Queries para dispositivos móviles */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 10px;
+            }
+
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 10px;
+            }
+
+            h1 {
+                margin-bottom: 5px;
+            }
+
+            .btn {
+                padding: 8px 16px;
+                font-size: 13px;
+            }
+
+            main {
+                padding: 20px 0;
+            }
+
+            .card {
+                padding: 20px;
+                margin-bottom: 20px;
+            }
+
+            .card-header {
+                margin-bottom: 20px;
+                padding-bottom: 12px;
+            }
+
+            .card-header i {
+                font-size: 20px;
+                padding: 8px;
+            }
+
+            .modal-content {
+                width: 95%;
+                margin: 50px auto;
+                padding: 20px;
+            }
+
+            .modal-header {
+                margin-bottom: 20px;
+                padding-bottom: 12px;
+            }
+
+            .admin-panel {
+                padding: 20px;
+                margin-top: 20px;
+            }
+
+            .admin-header {
+                margin-bottom: 20px;
+                padding-bottom: 15px;
+                flex-direction: column;
+                align-items: stretch;
+                text-align: center;
+            }
+
+            .admin-header h2 {
+                justify-content: center;
+                margin-bottom: 15px;
+            }
+
+            .admin-header .btn {
+                align-self: center;
+                width: auto;
+                margin-top: 0;
+            }
+
+            .stats-container {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+                margin-bottom: 20px;
+            }
+
+            .stat-card {
+                padding: 15px;
+            }
+
+            .stat-card i {
+                width: 50px;
+                height: 50px;
+                line-height: 50px;
+                font-size: 24px;
+            }
+
+            .stat-value {
+                font-size: 24px;
+            }
+
+            .stat-label {
+                font-size: 11px;
+            }
+
+            .tabs {
+                padding: 0 2px;
+            }
+
+            .tab {
+                padding: 10px 12px;
+                font-size: 13px;
+            }
+
+            .tab-content {
+                padding: 15px;
+            }
+
+            .provider-item {
+                padding: 12px;
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .provider-status {
+                margin-top: 8px;
+                align-self: flex-end;
+            }
+
+            .notification {
+                left: 10px;
+                right: 10px;
+                top: 10px;
+            }
+
+            .info-row {
+                flex-direction: column;
+            }
+
+            .info-label {
+                margin-bottom: 5px;
+            }
+
+            .alert {
+                padding: 12px;
+            }
+
+            .alert i {
+                margin-right: 10px;
+                font-size: 18px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .stats-container {
+                grid-template-columns: 1fr;
+            }
+
+            .provider-list {
+                max-height: 300px;
+            }
+
+            .btn-primary {
+                width: 100%;
+                justify-content: center;
+                padding: 14px;
+            }
+
+            .modal-content {
+                margin: 20px auto;
+                padding: 15px;
+            }
+
+            .admin-header .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo-container">
+                    <img src="https://www.santa-priscila-admin.com/img/logo.png" alt="Logo Santa Priscila">
+                    <h1>Control de Proveedores - Santa Priscila</h1>
+                </div>
+                <button class="btn" id="btnAdmin" onclick="mostrarLogin()">
+                    <i class="fas fa-user-shield"></i> Soporte TI
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container" id="mainContent">
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-user-plus"></i>
+                <h2>Registrar ingreso de proveedor</h2>
+            </div>
+            
+            <div class="form-group">
+                <label for="cedula">Número de cédula:</label>
+                <input type="text" id="cedula" placeholder="Ingrese número de cédula">
+            </div>
+            
+            <button class="btn-primary" onclick="buscarProveedor()">
+                <i class="fas fa-search"></i> Buscar
+            </button>
+
+            <div id="resultado" class="info-box"></div>
+
+            <div id="registroPlanta" style="display:none;">
+                <div class="form-group">
+                    <label for="planta">Seleccione planta de ingreso:</label>
+                    <select id="planta">
+                        <option value="">-- Seleccione una planta --</option>
+                        <option value="Planta 1">Planta 1</option>
+                        <option value="Planta 2">Planta 2</option>
+                        <option value="Planta 7">Planta 7</option>
+                        <option value="Textiles">Textiles</option>
+                    </select>
+                </div>
+                
+                <button class="btn-primary" onclick="registrarAsistencia()">
+                    <i class="fas fa-check"></i> Registrar ingreso
+                </button>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-clipboard-list"></i>
+                <h2>Revisar asistencia</h2>
+            </div>
+            
+            <div class="form-group">
+                <label for="cedulaConsulta">Número de cédula:</label>
+                <input type="text" id="cedulaConsulta" placeholder="Ingrese número de cédula">
+            </div>
+            
+            <button class="btn-primary" onclick="consultarAsistencia()">
+                <i class="fas fa-search"></i> Consultar
+            </button>
+
+            <div id="resultadoConsulta" class="info-box"></div>
+        </div>
+    </main>
+
+    <!-- MODAL DE LOGIN -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-lock"></i> Iniciar sesión (Soporte TI)</h2>
+                <button class="close-btn" onclick="cancelarLogin()">&times;</button>
+            </div>
+            
+            <div class="form-group">
+                <label for="usuario">Usuario:</label>
+                <input type="text" id="usuario" placeholder="Ingrese su usuario">
+            </div>
+            
+            <div class="form-group">
+                <label for="contrasena">Contraseña:</label>
+                <input type="password" id="contrasena" placeholder="Ingrese su contraseña">
+            </div>
+            
+            <div style="display: flex; justify-content: space-between; gap: 10px;">
+                <button class="btn-primary" onclick="iniciarSesion()" style="flex: 1;">
+                    <i class="fas fa-sign-in-alt"></i> Entrar
+                </button>
+                <button class="btn" onclick="cancelarLogin()" style="flex: 1;">
+                    <i class="fas fa-times"></i> Cancelar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PANEL DE ADMINISTRADOR -->
+    <div id="adminPanel" class="admin-panel container">
+        <div class="admin-header">
+            <h2><i class="fas fa-cogs"></i> Panel de Administración - Santa Priscila</h2>
+            <button class="btn" onclick="cerrarSesion()">
+                <i class="fas fa-sign-out-alt"></i> Cerrar sesión
+            </button>
+        </div>
+
+        <!-- Estadísticas solo para administradores -->
+        <div class="stats-container">
+            <div class="stat-card">
+                <i class="fas fa-users"></i>
+                <div class="stat-value" id="totalProviders">3</div>
+                <div class="stat-label">Total de Proveedores</div>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-check-circle"></i>
+                <div class="stat-value" id="authorizedProviders">2</div>
+                <div class="stat-label">Proveedores Autorizados</div>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-times-circle"></i>
+                <div class="stat-value" id="unauthorizedProviders">1</div>
+                <div class="stat-label">Proveedores No Autorizados</div>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-clock"></i>
+                <div class="stat-value" id="todayVisits">0</div>
+                <div class="stat-label">Visitas Hoy</div>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-building"></i>
+                <div class="stat-value">4</div>
+                <div class="stat-label">Plantas Disponibles</div>
+            </div>
+        </div>
+
+        <div class="tabs">
+            <div class="tab active" onclick="switchTab('addProvider')">Agregar Proveedor</div>
+            <div class="tab" onclick="switchTab('listProviders')">Lista de Proveedores</div>
+            <div class="tab" onclick="switchTab('attendanceHistory')">Historial de Asistencias</div>
+        </div>
+
+        <div id="addProvider" class="tab-content active">
+            <h3>Agregar nuevo proveedor</h3>
+            
+            <div class="form-group">
+                <label for="nuevoCedula">Cédula:</label>
+                <input type="text" id="nuevoCedula" placeholder="Número de cédula">
+            </div>
+            
+            <div class="form-group">
+                <label for="nuevoNombre">Nombres:</label>
+                <input type="text" id="nuevoNombre" placeholder="Nombres completos">
+            </div>
+            
+            <div class="form-group">
+                <label for="nuevoApellido">Apellidos:</label>
+                <input type="text" id="nuevoApellido" placeholder="Apellidos completos">
+            </div>
+            
+            <div class="form-group">
+                <label for="nuevaEmpresa">Empresa:</label>
+                <input type="text" id="nuevaEmpresa" placeholder="Nombre de la empresa">
+            </div>
+            
+            <div class="form-group">
+                <label for="nuevoEstado">Estado:</label>
+                <select id="nuevoEstado">
+                    <option value="true">Autorizado</option>
+                    <option value="false">No autorizado</option>
+                </select>
+            </div>
+            
+            <button class="btn-primary" onclick="agregarProveedor()">
+                <i class="fas fa-plus-circle"></i> Agregar proveedor
+            </button>
+        </div>
+
+        <div id="listProviders" class="tab-content">
+            <div class="provider-section authorized">
+                <h3><i class="fas fa-check-circle"></i> Proveedores Autorizados</h3>
+                <div class="provider-list" id="listaProveedoresAutorizados"></div>
+            </div>
+            
+            <div class="provider-section unauthorized">
+                <h3><i class="fas fa-times-circle"></i> Proveedores No Autorizados</h3>
+                <div class="provider-list" id="listaProveedoresNoAutorizados"></div>
+            </div>
+        </div>
+
+        <div id="attendanceHistory" class="tab-content">
+            <h3>Historial de asistencias</h3>
+            <div class="provider-list" id="historialAsistencias"></div>
+        </div>
+    </div>
+
+    <!-- NOTIFICACIÓN -->
+    <div id="notification" class="notification">
+        <i class="fas fa-check-circle"></i>
+        <span id="notificationMessage">Operación realizada con éxito</span>
+    </div>
+
+    <script>
+        // --- Base de datos simulada ---
+        let proveedores = [
+            { cedula: "1234567890", nombres: "Juan", apellidos: "Pérez", empresa: "AgroExport SA", autorizado: true },
+            { cedula: "0987654321", nombres: "María", apellidos: "Lopez", empresa: "TransServicios", autorizado: false },
+            { cedula: "1122334455", nombres: "Carlos", apellidos: "Gómez", empresa: "Insumos del Campo", autorizado: true }
+        ];
+
+        let asistencias = [];
+        let esAdmin = false;
+
+        // Actualizar estadísticas iniciales
+        updateStats();
+
+        // Mostrar login
+        function mostrarLogin() {
+            document.getElementById('loginModal').style.display = 'block';
+            document.getElementById('mainContent').style.display = 'none';
+            document.getElementById('btnAdmin').style.display = 'none';
+            
+            // Limpiar campos de login cada vez que se abre
+            document.getElementById('usuario').value = '';
+            document.getElementById('contrasena').value = '';
+        }
+
+        // Cancelar login
+        function cancelarLogin() {
+            document.getElementById('loginModal').style.display = 'none';
+            document.getElementById('mainContent').style.display = 'block';
+            document.getElementById('btnAdmin').style.display = 'block';
+
+            // Limpiar campos
+            document.getElementById('usuario').value = '';
+            document.getElementById('contrasena').value = '';
+        }
+
+        // Iniciar sesión administrador
+        function iniciarSesion() {
+            const usuario = document.getElementById('usuario').value.trim();
+            const contrasena = document.getElementById('contrasena').value.trim();
+
+            if (usuario === "admin" && contrasena === "clavito01") {
+                esAdmin = true;
+                document.getElementById('loginModal').style.display = 'none';
+                document.getElementById('adminPanel').style.display = 'block';
+                mostrarListaProveedores();
+                mostrarHistorialAsistencias();
+                showNotification('Sesión iniciada correctamente', 'success');
+            } else {
+                showNotification('Usuario o contraseña incorrectos', 'error');
+            }
+        }
+
+        // Cerrar sesión
+        function cerrarSesion() {
+            esAdmin = false;
+            document.getElementById('adminPanel').style.display = 'none';
+            document.getElementById('mainContent').style.display = 'block';
+            document.getElementById('btnAdmin').style.display = 'block';
+
+            // Limpiar credenciales del login para la próxima vez
+            document.getElementById('usuario').value = '';
+            document.getElementById('contrasena').value = '';
+            
+            showNotification('Sesión cerrada correctamente', 'success');
+        }
+
+        // Cambiar tab en panel de administración
+        function switchTab(tabName) {
+            // Ocultar todos los contenidos de tabs
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabContents.forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Quitar clase active de todos los tabs
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Mostrar el tab seleccionado
+            document.getElementById(tabName).classList.add('active');
+            
+            // Añadir clase active al tab clickeado
+            event.target.classList.add('active');
+            
+            // Actualizar contenido específico si es necesario
+            if (tabName === 'listProviders') {
+                mostrarListaProveedores();
+            } else if (tabName === 'attendanceHistory') {
+                mostrarHistorialAsistencias();
+            }
+        }
+
+        // --- Funciones para control de asistencia ---
+        function buscarProveedor() {
+            const cedula = document.getElementById('cedula').value.trim();
+            const proveedor = proveedores.find(p => p.cedula === cedula);
+            const divResultado = document.getElementById('resultado');
+            const divPlanta = document.getElementById('registroPlanta');
+
+            if (proveedor) {
+                divResultado.style.display = 'block';
+                let html = `
+                    <div class="info-row">
+                        <div class="info-label">Nombres:</div>
+                        <div>${proveedor.nombres}</div>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-label">Apellidos:</div>
+                        <div>${proveedor.apellidos}</div>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-label">Cédula:</div>
+                        <div>${proveedor.cedula}</div>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-label">Empresa:</div>
+                        <div>${proveedor.empresa}</div>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-label">Estado:</div>
+                        <div>${proveedor.autorizado ? 
+                            '<span class="provider-status status-authorized">✅ Autorizado</span>' : 
+                            '<span class="provider-status status-unauthorized">❌ No autorizado</span>'}
+                        </div>
+                    </div>
+                `;
+                
+                if (!proveedor.autorizado) {
+                    html += `
+                        <div class="alert alert-warning">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <span>Por favor, llame al jefe del departamento indicado para su autorización de ingreso.</span>
+                        </div>
+                    `;
+                }
+                
+                divResultado.innerHTML = html;
+                divPlanta.style.display = proveedor.autorizado ? 'block' : 'none';
+            } else {
+                divResultado.style.display = 'block';
+                divResultado.innerHTML = `
+                    <div class="alert alert-warning">
+                        <i class="fas fa-info-circle"></i>
+                        <span>No se encontró ningún proveedor con esa cédula.</span>
+                    </div>
+                `;
+                divPlanta.style.display = 'none';
+            }
+        }
+
+        function registrarAsistencia() {
+            const cedulaInput = document.getElementById('cedula');
+            const plantaInput = document.getElementById('planta');
+            const divResultado = document.getElementById('resultado');
+            const divPlanta = document.getElementById('registroPlanta');
+
+            const cedula = cedulaInput.value.trim();
+            const planta = plantaInput.value;
+
+            if (!cedula || !planta) {
+                showNotification('Debe ingresar una cédula válida y seleccionar una planta', 'error');
+                return;
+            }
+
+            const fecha = new Date().toLocaleString();
+            asistencias.push({ cedula, planta, fecha });
+            showNotification('Asistencia registrada correctamente', 'success');
+            updateStats();
+
+            // Vaciar campos y limpiar resultados
+            cedulaInput.value = '';
+            plantaInput.value = '';
+            divResultado.style.display = 'none';
+            divPlanta.style.display = 'none';
+        }
+
+        function consultarAsistencia() {
+            const cedulaInput = document.getElementById('cedulaConsulta');
+            const cedula = cedulaInput.value.trim();
+            const registros = asistencias.filter(a => a.cedula === cedula);
+            const div = document.getElementById('resultadoConsulta');
+
+            if (registros.length > 0) {
+                let html = "<h3>Asistencias registradas:</h3>";
+                
+                registros.forEach(r => {
+                    const proveedor = proveedores.find(p => p.cedula === cedula);
+                    const nombreProveedor = proveedor ? 
+                        `${proveedor.nombres} ${proveedor.apellidos}` : 
+                        'Proveedor no encontrado';
+                    
+                    html += `
+                        <div class="provider-item">
+                            <div class="provider-info">
+                                <strong>${nombreProveedor}</strong> (${r.cedula})
+                                <br>
+                                <i class="fas fa-building"></i> ${r.planta} - 
+                                <i class="fas fa-calendar"></i> ${r.fecha}
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                div.innerHTML = html;
+            } else {
+                div.innerHTML = `
+                    <div class="alert alert-warning">
+                        <i class="fas fa-info-circle"></i>
+                        <span>No hay registros de asistencia para esa cédula.</span>
+                    </div>
+                `;
+            }
+
+            div.style.display = 'block';
+            cedulaInput.value = ''; // limpiar campo después de consulta
+        }
+
+        // --- Funciones del administrador ---
+        function agregarProveedor() {
+            if (!esAdmin) {
+                showNotification('No tiene permisos para realizar esta acción', 'error');
+                return;
+            }
+            
+            const cedula = document.getElementById('nuevoCedula').value.trim();
+            const nombres = document.getElementById('nuevoNombre').value.trim();
+            const apellidos = document.getElementById('nuevoApellido').value.trim();
+            const empresa = document.getElementById('nuevaEmpresa').value.trim();
+            const autorizado = document.getElementById('nuevoEstado').value === "true";
+
+            if (!cedula || !nombres || !apellidos || !empresa) {
+                showNotification('Debe completar todos los campos', 'error');
+                return;
+            }
+
+            // Verificar si ya existe un proveedor con esa cédula
+            if (proveedores.find(p => p.cedula === cedula)) {
+                showNotification('Ya existe un proveedor con esa cédula', 'error');
+                return;
+            }
+
+            proveedores.push({ cedula, nombres, apellidos, empresa, autorizado });
+            showNotification('Proveedor agregado correctamente', 'success');
+            updateStats();
+            
+            // Limpiar formulario
+            document.getElementById('nuevoCedula').value = '';
+            document.getElementById('nuevoNombre').value = '';
+            document.getElementById('nuevoApellido').value = '';
+            document.getElementById('nuevaEmpresa').value = '';
+            document.getElementById('nuevoEstado').value = 'true';
+        }
+
+        function mostrarListaProveedores() {
+            const contenedorAutorizados = document.getElementById('listaProveedoresAutorizados');
+            const contenedorNoAutorizados = document.getElementById('listaProveedoresNoAutorizados');
+            
+            // Separar proveedores por estado
+            const autorizados = proveedores.filter(p => p.autorizado);
+            const noAutorizados = proveedores.filter(p => !p.autorizado);
+            
+            // Mostrar proveedores autorizados
+            if (autorizados.length === 0) {
+                contenedorAutorizados.innerHTML = `
+                    <div class="alert alert-warning">
+                        <i class="fas fa-info-circle"></i>
+                        <span>No hay proveedores autorizados registrados</span>
+                    </div>
+                `;
+            } else {
+                contenedorAutorizados.innerHTML = autorizados.map(p => `
+                    <div class="provider-item">
+                        <div class="provider-info">
+                            <strong>${p.nombres} ${p.apellidos}</strong> (${p.empresa})
+                            <br>
+                            <small><i class="fas fa-id-card"></i> ${p.cedula}</small>
+                        </div>
+                        <div class="provider-status status-authorized">
+                            Autorizado
+                        </div>
+                    </div>
+                `).join('');
+            }
+            
+            // Mostrar proveedores no autorizados
+            if (noAutorizados.length === 0) {
+                contenedorNoAutorizados.innerHTML = `
+                    <div class="alert alert-warning">
+                        <i class="fas fa-info-circle"></i>
+                        <span>No hay proveedores no autorizados registrados</span>
+                    </div>
+                `;
+            } else {
+                contenedorNoAutorizados.innerHTML = noAutorizados.map(p => `
+                    <div class="provider-item">
+                        <div class="provider-info">
+                            <strong>${p.nombres} ${p.apellidos}</strong> (${p.empresa})
+                            <br>
+                            <small><i class="fas fa-id-card"></i> ${p.cedula}</small>
+                        </div>
+                        <div class="provider-status status-unauthorized">
+                            No autorizado
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        function mostrarHistorialAsistencias() {
+            const contenedor = document.getElementById('historialAsistencias');
+            
+            if (asistencias.length === 0) {
+                contenedor.innerHTML = `
+                    <div class="alert alert-warning">
+                        <i class="fas fa-info-circle"></i>
+                        <span>No hay registros de asistencia</span>
+                    </div>
+                `;
+                return;
+            }
+            
+            // Ordenar asistencias por fecha (más reciente primero)
+            const asistenciasOrdenadas = [...asistencias].sort((a, b) => {
+                return new Date(b.fecha) - new Date(a.fecha);
+            });
+            
+            contenedor.innerHTML = asistenciasOrdenadas.map(r => {
+                const proveedor = proveedores.find(p => p.cedula === r.cedula);
+                const nombreProveedor = proveedor ? 
+                    `${proveedor.nombres} ${proveedor.apellidos}` : 
+                    'Proveedor no encontrado';
+                
+                return `
+                    <div class="provider-item">
+                        <div class="provider-info">
+                            <strong>${nombreProveedor}</strong> (${r.cedula})
+                            <br>
+                            <small>
+                                <i class="fas fa-building"></i> ${r.planta} - 
+                                <i class="fas fa-calendar"></i> ${r.fecha}
+                            </small>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function updateStats() {
+            // Actualizar estadísticas
+            document.getElementById('totalProviders').textContent = proveedores.length;
+            document.getElementById('authorizedProviders').textContent = 
+                proveedores.filter(p => p.autorizado).length;
+            document.getElementById('unauthorizedProviders').textContent = 
+                proveedores.filter(p => !p.autorizado).length;
+            
+            // Calcular visitas de hoy
+            const today = new Date().toLocaleDateString();
+            const todayVisits = asistencias.filter(a => 
+                new Date(a.fecha).toLocaleDateString() === today
+            ).length;
+            
+            document.getElementById('todayVisits').textContent = todayVisits;
+        }
+
+        function showNotification(message, type) {
+            const notification = document.getElementById('notification');
+            const notificationMessage = document.getElementById('notificationMessage');
+            const icon = notification.querySelector('i');
+            
+            // Configurar notificación
+            notificationMessage.textContent = message;
+            notification.className = `notification ${type}`;
+            
+            // Configurar icono según tipo
+            if (type === 'success') {
+                icon.className = 'fas fa-check-circle';
+            } else if (type === 'error') {
+                icon.className = 'fas fa-exclamation-circle';
+            }
+            
+            // Mostrar notificación
+            notification.style.display = 'flex';
+            
+            // Ocultar después de 3 segundos
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
