@@ -2,1502 +2,577 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Control de Proveedores - Santa Priscila</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>XV Años - Gaby Criollo García 👑</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config={theme:{extend:{fontFamily:{script:['Great Vibes','cursive'],display:['Playfair Display','serif'],elegant:['Cormorant Garamond',serif]}}}}
+    </script>
     <style>
-        :root {
-            --primary-color: #1a365d;
-            --primary-light: #2c5282;
-            --primary-dark: #1a365d;
-            --secondary-color: #3182ce;
-            --accent-color: #4299e1;
-            --success-color: #38a169;
-            --warning-color: #d69e2e;
-            --danger-color: #e53e3e;
-            --light-bg: #f7fafc;
-            --dark-bg: #1a365d;
-            --card-bg: #ffffff;
-            --dark-text: #2d3748;
-            --light-text: #f7fafc;
-            --muted-text: #718096;
-            --border-color: #e2e8f0;
-            --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.08);
-            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
-            --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
-            --shadow-xl: 0 16px 32px rgba(0, 0, 0, 0.15);
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Open Sans', sans-serif;
-            background: linear-gradient(135deg, #1a365d 0%, #2c5282 25%, #3182ce 50%, #4299e1 75%, #63b3ed 100%);
-            background-attachment: fixed;
-            color: var(--dark-text);
-            line-height: 1.6;
-            min-height: 100vh;
-            position: relative;
-        }
-
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="white" fill-opacity="0.02"/><path d="M0 0L100 100M100 0L0 100" stroke="white" stroke-width="0.5" stroke-opacity="0.1"/></svg>');
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 15px;
-            position: relative;
-            z-index: 1;
-        }
-
-        header {
-            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-color) 50%, var(--secondary-color) 100%);
-            color: var(--light-text);
-            padding: 15px 0;
-            box-shadow: var(--shadow-lg);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            animation: slideDown 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-        .logo-container {
-            display: flex;
-            align-items: center;
-        }
-
-        header img {
-            height: 50px;
-            margin-right: 15px;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-            transition: var(--transition);
-            background: white;
-            padding: 5px;
-        }
-
-        header img:hover {
-            transform: scale(1.05);
-            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
-        }
-
-        h1 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: clamp(18px, 4vw, 28px);
-            font-weight: 600;
-            letter-spacing: -0.5px;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-        }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            background: rgba(255, 255, 255, 0.15);
-            color: white;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 10px 20px;
-            border-radius: 50px;
-            cursor: pointer;
-            font-weight: 500;
-            transition: var(--transition);
-            font-size: 14px;
-            backdrop-filter: blur(10px);
-            text-decoration: none;
-            margin-top: 5px;
-        }
-
-        .btn:hover {
-            background: rgba(255, 255, 255, 0.25);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-            border-color: rgba(255, 255, 255, 0.3);
-        }
-
-        .btn i {
-            margin-right: 8px;
-        }
-
-        main {
-            padding: 30px 0;
-            animation: fadeIn 0.8s ease;
-        }
-
-        .card {
-            background: var(--card-bg);
-            border-radius: 16px;
-            padding: 25px;
-            margin-bottom: 25px;
-            box-shadow: var(--shadow-md);
-            transition: var(--transition);
-            border: 1px solid var(--border-color);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
-            transform: scaleX(0);
-            transition: transform 0.3s ease;
-        }
-
-        .card:hover::before {
-            transform: scaleX(1);
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-xl);
-        }
-
-        .card-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 25px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid var(--border-color);
-            flex-wrap: wrap;
-        }
-
-        .card-header i {
-            font-size: 24px;
-            margin-right: 15px;
-            color: var(--primary-color);
-            background: rgba(26, 54, 93, 0.1);
-            padding: 10px;
-            border-radius: 12px;
-        }
-
-        h2 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: clamp(20px, 4vw, 24px);
-            color: var(--dark-text);
-            font-weight: 600;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 500;
-            color: var(--dark-text);
-            font-size: 14px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        input, select {
-            width: 100%;
-            padding: 12px 15px;
-            border: 2px solid var(--border-color);
-            border-radius: 10px;
-            font-size: 16px;
-            transition: var(--transition);
-            background: var(--light-bg);
-            font-family: 'Open Sans', sans-serif;
-        }
-
-        input:focus, select:focus {
-            border-color: var(--primary-color);
-            outline: none;
-            box-shadow: 0 0 0 4px rgba(26, 54, 93, 0.1);
-            background: white;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 10px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: var(--transition);
-            display: inline-flex;
-            align-items: center;
-            font-size: 16px;
-            box-shadow: var(--shadow-md);
-            font-family: 'Montserrat', sans-serif;
-            margin-top: 10px;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-lg);
-            background: linear-gradient(135deg, var(--primary-dark), var(--primary-color));
-        }
-
-        .btn-primary i {
-            margin-right: 10px;
-        }
-
-        .info-box {
-            margin-top: 20px;
-            padding: 20px;
-            border-radius: 12px;
-            background: linear-gradient(135deg, #f7fafc, #edf2f7);
-            border-left: 4px solid var(--primary-color);
-            display: none;
-            animation: slideIn 0.5s ease;
-            box-shadow: var(--shadow-sm);
-        }
-
-        .info-row {
-            display: flex;
-            margin-bottom: 12px;
-            padding-bottom: 8px;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-            flex-wrap: wrap;
-        }
-
-        .info-row:last-child {
-            border-bottom: none;
-            margin-bottom: 0;
-            padding-bottom: 0;
-        }
-
-        .info-label {
-            font-weight: 600;
-            min-width: 120px;
-            color: var(--primary-color);
-            font-size: 14px;
-        }
-
-        .alert {
-            padding: 15px;
-            margin-top: 15px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            box-shadow: var(--shadow-sm);
-        }
-
-        .alert-warning {
-            background: linear-gradient(135deg, #fffdf7, #fef5e7);
-            color: #856404;
-            border-left: 4px solid var(--warning-color);
-        }
-
-        .alert i {
-            margin-right: 12px;
-            font-size: 20px;
-            flex-shrink: 0;
-        }
-
-        .divider {
-            height: 1px;
-            background: linear-gradient(to right, transparent, var(--border-color), transparent);
-            margin: 30px 0;
-            position: relative;
-        }
-
-        .divider::before {
-            content: '';
-            position: absolute;
-            top: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 40px;
-            height: 20px;
-            background: linear-gradient(135deg, #1a365d 0%, #2c5282 25%, #3182ce 50%, #4299e1 75%, #63b3ed 100%);
-        }
-
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.6);
-            z-index: 2000;
-            animation: fadeIn 0.3s ease;
-            backdrop-filter: blur(5px);
-        }
-
-        .modal-content {
-            background: white;
-            width: 95%;
-            max-width: 500px;
-            margin: 80px auto;
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: var(--shadow-xl);
-            animation: slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            border: 1px solid var(--border-color);
-        }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 25px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid var(--border-color);
-            flex-wrap: wrap;
-        }
-
-        .modal-header h2 {
-            margin: 0;
-            color: var(--primary-color);
-            display: flex;
-            align-items: center;
-            font-size: clamp(18px, 4vw, 22px);
-        }
-
-        .modal-header h2 i {
-            margin-right: 12px;
-            background: rgba(26, 54, 93, 0.1);
-            padding: 8px;
-            border-radius: 10px;
-        }
-
-        .close-btn {
-            background: none;
-            border: none;
-            font-size: 24px;
-            cursor: pointer;
-            color: var(--muted-text);
-            transition: var(--transition);
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-        }
-
-        .close-btn:hover {
-            color: var(--danger-color);
-            background: rgba(229, 62, 62, 0.1);
-            transform: rotate(90deg);
-        }
-
-        .admin-panel {
-            display: none;
-            background: var(--card-bg);
-            border-radius: 20px;
-            padding: 25px;
-            box-shadow: var(--shadow-lg);
-            margin-top: 30px;
-            animation: slideIn 0.5s ease;
-            border: 1px solid var(--border-color);
-        }
-
-        .admin-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 25px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid var(--border-color);
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-
-        .admin-header h2 {
-            color: var(--primary-color);
-            display: flex;
-            align-items: center;
-            font-size: clamp(18px, 4vw, 22px);
-            flex: 1;
-        }
-
-        .admin-header h2 i {
-            margin-right: 12px;
-            background: rgba(26, 54, 93, 0.1);
-            padding: 10px;
-            border-radius: 12px;
-        }
-
-        .admin-header .btn {
-            background: linear-gradient(135deg, var(--danger-color), #c53030);
-            border: 1px solid rgba(229, 62, 62, 0.3);
-            flex-shrink: 0;
-            margin-top: 0;
-        }
-
-        .admin-header .btn:hover {
-            background: linear-gradient(135deg, #c53030, var(--danger-color));
-            border-color: rgba(229, 62, 62, 0.5);
-        }
-
-        .provider-list {
-            margin-top: 20px;
-            max-height: 400px;
-            overflow-y: auto;
-            padding-right: 10px;
-        }
-
-        .provider-list::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        .provider-list::-webkit-scrollbar-track {
-            background: var(--light-bg);
-            border-radius: 10px;
-        }
-
-        .provider-list::-webkit-scrollbar-thumb {
-            background: var(--primary-color);
-            border-radius: 10px;
-        }
-
-        .provider-item {
-            padding: 15px;
-            border-radius: 12px;
-            margin-bottom: 12px;
-            background: linear-gradient(135deg, #f7fafc, #ffffff);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: var(--transition);
-            border: 1px solid var(--border-color);
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .provider-item:hover {
-            transform: translateX(5px);
-            box-shadow: var(--shadow-md);
-            border-color: var(--primary-color);
-        }
-
-        .provider-info {
-            flex-grow: 1;
-            min-width: 200px;
-        }
-
-        .provider-status {
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            white-space: nowrap;
-        }
-
-        .status-authorized {
-            background: linear-gradient(135deg, rgba(56, 161, 105, 0.15), rgba(56, 161, 105, 0.05));
-            color: var(--success-color);
-            border: 1px solid rgba(56, 161, 105, 0.2);
-        }
-
-        .status-unauthorized {
-            background: linear-gradient(135deg, rgba(229, 62, 62, 0.15), rgba(229, 62, 62, 0.05));
-            color: var(--danger-color);
-            border: 1px solid rgba(229, 62, 62, 0.2);
-        }
-
-        .notification {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            left: 20px;
-            padding: 15px 20px;
-            background: white;
-            border-radius: 12px;
-            box-shadow: var(--shadow-lg);
-            display: none;
-            align-items: center;
-            z-index: 3000;
-            animation: slideInRight 0.5s ease;
-            border-left: 4px solid var(--success-color);
-            max-width: none;
-        }
-
-        .notification i {
-            margin-right: 12px;
-            font-size: 20px;
-            flex-shrink: 0;
-        }
-
-        .notification.success {
-            border-left-color: var(--success-color);
-        }
-
-        .notification.success i {
-            color: var(--success-color);
-        }
-
-        .notification.error {
-            border-left-color: var(--danger-color);
-        }
-
-        .notification.error i {
-            color: var(--danger-color);
-        }
-
-        .tabs {
-            display: flex;
-            margin-bottom: 20px;
-            border-bottom: 2px solid var(--border-color);
-            background: var(--light-bg);
-            border-radius: 12px 12px 0 0;
-            padding: 0 5px;
-            overflow-x: auto;
-        }
-
-        .tab {
-            padding: 12px 16px;
-            cursor: pointer;
-            border-bottom: 3px solid transparent;
-            transition: var(--transition);
-            font-weight: 500;
-            border-radius: 8px 8px 0 0;
-            margin: 0 2px;
-            white-space: nowrap;
-            font-size: 14px;
-        }
-
-        .tab:hover {
-            background: rgba(26, 54, 93, 0.05);
-        }
-
-        .tab.active {
-            border-bottom: 3px solid var(--primary-color);
-            color: var(--primary-color);
-            background: white;
-            font-weight: 600;
-        }
-
-        .tab-content {
-            display: none;
-            padding: 20px;
-            background: white;
-            border-radius: 0 0 12px 12px;
-            border: 1px solid var(--border-color);
-            border-top: none;
-        }
-
-        .tab-content.active {
-            display: block;
-            animation: fadeIn 0.5s ease;
-        }
-
-        .stats-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin-bottom: 30px;
-        }
-
-        .stat-card {
-            background: linear-gradient(135deg, white, #f7fafc);
-            padding: 20px;
-            border-radius: 16px;
-            box-shadow: var(--shadow-md);
-            text-align: center;
-            transition: var(--transition);
-            border: 1px solid var(--border-color);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .stat-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
-        }
-
-        .stat-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-xl);
-        }
-
-        .stat-card i {
-            font-size: 28px;
-            margin-bottom: 12px;
-            color: var(--primary-color);
-            background: rgba(26, 54, 93, 0.1);
-            width: 60px;
-            height: 60px;
-            line-height: 60px;
-            border-radius: 50%;
-            display: inline-block;
-        }
-
-        .stat-value {
-            font-size: 28px;
-            font-weight: 700;
-            color: var(--dark-text);
-            margin-bottom: 5px;
-            font-family: 'Montserrat', sans-serif;
-        }
-
-        .stat-label {
-            font-size: 12px;
-            color: var(--muted-text);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            font-weight: 500;
-        }
-
-        .provider-section {
-            margin-bottom: 25px;
-        }
-
-        .provider-section h3 {
-            color: var(--dark-text);
-            margin-bottom: 15px;
-            font-size: 18px;
-            display: flex;
-            align-items: center;
-        }
-
-        .provider-section h3 i {
-            margin-right: 10px;
-            color: var(--primary-color);
-        }
-
-        .provider-section.authorized h3 i {
-            color: var(--success-color);
-        }
-
-        .provider-section.unauthorized h3 i {
-            color: var(--danger-color);
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes slideDown {
-            from { transform: translateY(-30px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-
-        @keyframes slideIn {
-            from { transform: translateX(-30px); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-
-        @keyframes slideUp {
-            from { transform: translateY(30px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-
-        @keyframes slideInRight {
-            from { transform: translateX(30px); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-
-        /* Media Queries para dispositivos móviles */
-        @media (max-width: 768px) {
-            .container {
-                padding: 0 10px;
-            }
-
-            .header-content {
-                flex-direction: column;
-                text-align: center;
-                gap: 10px;
-            }
-
-            h1 {
-                margin-bottom: 5px;
-            }
-
-            .btn {
-                padding: 8px 16px;
-                font-size: 13px;
-            }
-
-            main {
-                padding: 20px 0;
-            }
-
-            .card {
-                padding: 20px;
-                margin-bottom: 20px;
-            }
-
-            .card-header {
-                margin-bottom: 20px;
-                padding-bottom: 12px;
-            }
-
-            .card-header i {
-                font-size: 20px;
-                padding: 8px;
-            }
-
-            .modal-content {
-                width: 95%;
-                margin: 50px auto;
-                padding: 20px;
-            }
-
-            .modal-header {
-                margin-bottom: 20px;
-                padding-bottom: 12px;
-            }
-
-            .admin-panel {
-                padding: 20px;
-                margin-top: 20px;
-            }
-
-            .admin-header {
-                margin-bottom: 20px;
-                padding-bottom: 15px;
-                flex-direction: column;
-                align-items: stretch;
-                text-align: center;
-            }
-
-            .admin-header h2 {
-                justify-content: center;
-                margin-bottom: 15px;
-            }
-
-            .admin-header .btn {
-                align-self: center;
-                width: auto;
-                margin-top: 0;
-            }
-
-            .stats-container {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 10px;
-                margin-bottom: 20px;
-            }
-
-            .stat-card {
-                padding: 15px;
-            }
-
-            .stat-card i {
-                width: 50px;
-                height: 50px;
-                line-height: 50px;
-                font-size: 24px;
-            }
-
-            .stat-value {
-                font-size: 24px;
-            }
-
-            .stat-label {
-                font-size: 11px;
-            }
-
-            .tabs {
-                padding: 0 2px;
-            }
-
-            .tab {
-                padding: 10px 12px;
-                font-size: 13px;
-            }
-
-            .tab-content {
-                padding: 15px;
-            }
-
-            .provider-item {
-                padding: 12px;
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            .provider-status {
-                margin-top: 8px;
-                align-self: flex-end;
-            }
-
-            .notification {
-                left: 10px;
-                right: 10px;
-                top: 10px;
-            }
-
-            .info-row {
-                flex-direction: column;
-            }
-
-            .info-label {
-                margin-bottom: 5px;
-            }
-
-            .alert {
-                padding: 12px;
-            }
-
-            .alert i {
-                margin-right: 10px;
-                font-size: 18px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .stats-container {
-                grid-template-columns: 1fr;
-            }
-
-            .provider-list {
-                max-height: 300px;
-            }
-
-            .btn-primary {
-                width: 100%;
-                justify-content: center;
-                padding: 14px;
-            }
-
-            .modal-content {
-                margin: 20px auto;
-                padding: 15px;
-            }
-
-            .admin-header .btn {
-                width: 100%;
-            }
-        }
+        *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+        html,body{height:100%;overflow:hidden}
+        body{font-family:'Cormorant Garamond',serif}
+
+        .bg-main{position:relative;overflow:hidden;height:100%;background:#fff5f7}
+        .bg-main::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle at 15% 20%,rgba(251,113,133,.08) 0%,transparent 50%),radial-gradient(circle at 85% 30%,rgba(244,114,182,.06) 0%,transparent 50%),radial-gradient(circle at 50% 80%,rgba(253,164,175,.05) 0%,transparent 50%);pointer-events:none;z-index:0}
+
+        .full-photo-bg{position:absolute;inset:0;z-index:0;transition:opacity 1.2s cubic-bezier(.4,0,.2,1);opacity:0}
+        .full-photo-bg.active{opacity:1}
+        .full-photo-bg img{width:100%;height:100%;object-fit:cover;object-position:center 20%}
+        .full-photo-bg .overlay-base{position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,245,247,.60) 0%,rgba(255,245,247,.38) 30%,rgba(255,245,247,.52) 60%,rgba(255,245,247,.82) 100%)}
+        .full-photo-bg .overlay-vignette{position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 40%,rgba(255,245,247,.55) 100%)}
+        .full-photo-bg .overlay-blur{position:absolute;inset:0;backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px)}
+        .has-photo .content-layer{position:relative;z-index:1}
+        .has-photo header{background:linear-gradient(180deg,rgba(255,245,247,.78) 0%,rgba(255,245,247,.55) 100%);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+        .has-photo main{background:linear-gradient(0deg,rgba(255,245,247,.88) 0%,rgba(255,245,247,.58) 30%,rgba(255,245,247,.42) 100%);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+
+        .env-scene{position:relative;width:100%;height:100%;display:flex;align-items:center;justify-content:center;transition:all .8s cubic-bezier(.4,0,.2,1);z-index:1}
+        .env-scene.bye{opacity:0;pointer-events:none;transform:scale(.9)}
+        .env-wrap{position:relative;width:min(92vw,390px);cursor:pointer;transition:transform .3s}
+        .env-wrap:hover{transform:scale(1.03)}.env-wrap:active{transform:scale(.97)}
+        .env-body{background:linear-gradient(145deg,#fff0f3,#fce7f3,#fff5f7);border-radius:22px;padding:32px 28px 28px;box-shadow:0 20px 60px rgba(244,114,182,.15),0 8px 24px rgba(0,0,0,.06),inset 0 1px 0 rgba(255,255,255,.9);border:2px solid rgba(244,114,182,.2);position:relative;overflow:hidden}
+        .env-body::after{content:'';position:absolute;top:-50%;right:-50%;width:100%;height:100%;background:radial-gradient(circle,rgba(244,114,182,.04),transparent 70%);pointer-events:none}
+        .env-flap{position:absolute;top:-2px;left:-2px;right:-2px;height:55%;background:linear-gradient(180deg,#fbbf24,#f59e0b,#d97706);clip-path:polygon(0 0,100% 0,100% 100%,50% 68%,0 100%);border-radius:20px 20px 0 0;z-index:2;box-shadow:0 4px 15px rgba(245,158,11,.25);transition:transform .6s cubic-bezier(.4,0,.2,1),opacity .6s;transform-origin:top center}
+        .env-flap.go{transform:rotateX(180deg);opacity:0}
+        .seal{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:5;width:70px;height:70px;border-radius:50%;background:linear-gradient(135deg,#fbbf24,#f59e0b,#d97706);box-shadow:0 4px 20px rgba(245,158,11,.4),inset 0 2px 4px rgba(255,255,255,.4);display:flex;align-items:center;justify-content:center;transition:all .5s cubic-bezier(.4,0,.2,1);border:3px solid rgba(255,255,255,.3)}
+        .seal:hover{box-shadow:0 6px 30px rgba(245,158,11,.6);transform:translate(-50%,-50%) scale(1.1)}
+        .seal.go{transform:translate(-50%,-50%) scale(0);opacity:0}
+        .main-c{position:absolute;inset:0;opacity:0;pointer-events:none;transform:translateY(30px);transition:all .7s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;height:100%;overflow:hidden}
+        .main-c.show{opacity:1;pointer-events:all;transform:translateY(0)}
+        .p-box{position:relative;overflow:hidden;border-radius:20px;background:linear-gradient(135deg,rgba(244,114,182,.05),rgba(251,113,133,.03));border:1.5px solid rgba(244,114,182,.12)}
+        .p-box .scene{position:relative;width:100%;height:100%;overflow:hidden}
+        .p-box .scene svg{width:100%;height:100%}
+
+        @keyframes shimmer{0%{background-position:-200% center}100%{background-position:200% center}}
+        .shimmer{background:linear-gradient(90deg,#1a1a1a 0%,#be185d 25%,#ec4899 50%,#be185d 75%,#1a1a1a 100%);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:shimmer 3s linear infinite}
+        @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}.float{animation:float 3s ease-in-out infinite}
+        @keyframes sparkle{0%,100%{opacity:0;transform:scale(0) rotate(0deg)}50%{opacity:1;transform:scale(1) rotate(180deg)}}
+        .spark{position:absolute;width:6px;height:6px;background:#f472b6;clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);animation:sparkle 2.5s ease-in-out infinite;pointer-events:none;z-index:40}
+        @keyframes twinkle{0%,100%{opacity:.3}50%{opacity:.9}}.twinkle{animation:twinkle 2s ease-in-out infinite}
+        @keyframes fadeUp{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:translateY(0)}}.fade-up{animation:fadeUp .5s ease-out forwards}
+        @keyframes pulse-pink{0%,100%{box-shadow:0 0 0 0 rgba(236,72,153,.25)}70%{box-shadow:0 0 0 10px rgba(236,72,153,0)}100%{box-shadow:0 0 0 0 rgba(236,72,153,0)}}.pulse-pink{animation:pulse-pink 2s ease-out infinite}
+        @keyframes heart-beat{0%,100%{transform:scale(1)}15%{transform:scale(1.15)}30%{transform:scale(1)}45%{transform:scale(1.1)}}.heart-beat{animation:heart-beat 1.5s ease-in-out infinite}
+        @keyframes petal-fall{0%{transform:translateY(-5vh) rotate(0deg) translateX(0);opacity:.5}25%{transform:translateY(25vh) rotate(90deg) translateX(15px);opacity:.35}50%{transform:translateY(50vh) rotate(180deg) translateX(-10px);opacity:.3}75%{transform:translateY(75vh) rotate(270deg) translateX(20px);opacity:.15}100%{transform:translateY(105vh) rotate(360deg) translateX(-5px);opacity:0}}
+        .petal{position:fixed;border-radius:50% 0 50% 50%;pointer-events:none;z-index:1}
+        @keyframes crown-tilt{0%,100%{transform:rotate(-2deg)}50%{transform:rotate(2deg)}}.crown-tilt{animation:crown-tilt 3s ease-in-out infinite}
+        @keyframes glow{0%,100%{filter:drop-shadow(0 0 6px rgba(236,72,153,.3))}50%{filter:drop-shadow(0 0 18px rgba(236,72,153,.6))}}.glow{animation:glow 3s ease-in-out infinite}
+        @keyframes confetti-fall{0%{transform:translateY(-10vh) rotate(0deg);opacity:.7}100%{transform:translateY(110vh) rotate(720deg);opacity:0}}.confetti{position:fixed;pointer-events:none;z-index:2}
+        @keyframes seal-pulse{0%,100%{box-shadow:0 0 0 0 rgba(220,38,38,.4)}50%{box-shadow:0 0 0 6px rgba(220,38,38,0)}}.seal-pulse{animation:seal-pulse 2s ease-in-out infinite}
+        @keyframes soft-glow{0%,100%{box-shadow:0 0 15px rgba(190,24,93,.08)}50%{box-shadow:0 0 30px rgba(190,24,93,.15)}}.soft-glow{animation:soft-glow 4s ease-in-out infinite}
+        @keyframes click-hint{0%,100%{opacity:.6;transform:translateY(0)}50%{opacity:1;transform:translateY(-2px)}}.click-hint{animation:click-hint 2s ease-in-out infinite}
+
+        @keyframes fx-flash{0%{opacity:0}10%{opacity:.85}100%{opacity:0}}
+        @keyframes fx-ring{0%{transform:translate(-50%,-50%) scale(0);opacity:.9}100%{transform:translate(-50%,-50%) scale(1);opacity:0}}
+        @keyframes fx-shake{0%,100%{transform:translateX(0)}10%{transform:translateX(-6px) rotate(-.5deg)}20%{transform:translateX(6px) rotate(.5deg)}30%{transform:translateX(-5px) rotate(-.3deg)}40%{transform:translateX(5px) rotate(.3deg)}50%{transform:translateX(-3px)}60%{transform:translateX(3px)}70%{transform:translateX(-2px)}80%{transform:translateX(2px)}90%{transform:translateX(-1px)}}
+        @keyframes fx-zoom-out{0%{transform:scale(1)}50%{transform:scale(.94)}100%{transform:scale(1)}}
+        @keyframes fx-emoji-burst{0%{transform:translate(-50%,-50%) scale(0) rotate(0deg);opacity:1}40%{opacity:1}100%{transform:translate(var(--ex),var(--ey)) scale(.4) rotate(var(--er));opacity:0}}
+        @keyframes fx-center-emoji{0%{transform:translate(-50%,-50%) scale(0) rotate(-20deg);opacity:0}25%{transform:translate(-50%,-50%) scale(1.6) rotate(5deg);opacity:1}50%{transform:translate(-50%,-50%) scale(1.3) rotate(-3deg);opacity:1}100%{transform:translate(-50%,-50%) scale(0) rotate(15deg);opacity:0}}
+        @keyframes fx-heart-fly{0%{transform:translate(-50%,-50%) scale(0);opacity:0}20%{transform:translate(-50%,-50%) scale(1);opacity:1}100%{transform:translate(var(--hx),var(--hy)) scale(.2) rotate(var(--hr));opacity:0}}
+        @keyframes fx-sparkle-pop{0%{transform:scale(0) rotate(0deg);opacity:1}50%{transform:scale(1.2) rotate(180deg);opacity:1}100%{transform:scale(0) rotate(360deg);opacity:0}}
+        @keyframes fx-streak{0%{transform:translateX(-100%) rotate(var(--sr));opacity:0}15%{opacity:.7}85%{opacity:.7}100%{transform:translateX(100vw) rotate(var(--sr));opacity:0}}
+
+        .fx-flash{position:fixed;inset:0;z-index:9999;pointer-events:none;animation:fx-flash .6s ease-out forwards}
+        .fx-ring{position:fixed;top:50%;left:50%;width:160vmax;height:160vmax;border-radius:50%;pointer-events:none;z-index:9998;animation:fx-ring .9s ease-out forwards}
+        .fx-particle{position:fixed;pointer-events:none;z-index:9999;border-radius:50%}
+        .fx-emoji{position:fixed;top:50%;left:50%;pointer-events:none;z-index:9999;font-size:2.2rem;animation:fx-emoji-burst var(--ed) ease-out forwards}
+        .fx-center{position:fixed;top:50%;left:50%;pointer-events:none;z-index:10000;font-size:5rem;animation:fx-center-emoji 1.4s ease-out forwards;filter:drop-shadow(0 0 20px rgba(0,0,0,.15))}
+        .fx-heart{position:fixed;top:50%;left:50%;pointer-events:none;z-index:9999;font-size:1.6rem;animation:fx-heart-fly 2.5s ease-out forwards}
+        .fx-sparkle{position:fixed;pointer-events:none;z-index:9999;width:10px;height:10px;clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);animation:fx-sparkle-pop .8s ease-out forwards}
+        .fx-streak{position:fixed;top:50%;left:0;height:3px;pointer-events:none;z-index:9998;border-radius:2px;animation:fx-streak var(--sd) linear forwards}
+        .shake-fx{animation:fx-shake .5s ease-out}
+        .zoom-fx{animation:fx-zoom-out .5s ease-out}
+
+        .emoji-card{cursor:pointer;transition:all .3s cubic-bezier(.4,0,.2,1);user-select:none;-webkit-user-select:none}
+        .emoji-card:hover{transform:translateY(-4px) scale(1.03);box-shadow:0 12px 30px rgba(0,0,0,.12)}
+        .emoji-card:active{transform:scale(.95)}
+        .emoji-card .emoji-icon{transition:transform .3s}.emoji-card:hover .emoji-icon{transform:scale(1.2) rotate(-5deg)}
+
+        .tab-b{transition:all .3s;white-space:nowrap;font-size:13px}
+        .tab-b.active{background:linear-gradient(135deg,#be185d,#9d174d);color:white;box-shadow:0 4px 15px rgba(157,23,77,.3)}
+        .tab-b:not(.active){background:rgba(0,0,0,.04);color:#555;border:1px solid rgba(0,0,0,.1)}
+        .tab-b:not(.active):hover{background:rgba(0,0,0,.08);color:#222}
+        .inp{background:white;border:1.5px solid rgba(0,0,0,.15);color:#111;transition:all .3s;font-family:'Cormorant Garamond',serif;border-radius:14px;font-size:16px}
+        .inp:focus{outline:none;border-color:#be185d;box-shadow:0 0 0 3px rgba(190,24,93,.1)}
+        .inp::placeholder{color:rgba(0,0,0,.3)}
+        .rad input{display:none}
+        .rad label{cursor:pointer;padding:10px 22px;border:1.5px solid rgba(0,0,0,.15);border-radius:50px;transition:all .3s;font-weight:500;font-size:15px;color:#444}
+        .rad input:checked+label{background:linear-gradient(135deg,#be185d,#9d174d);color:white;border-color:transparent;box-shadow:0 4px 12px rgba(157,23,77,.25)}
+        .rad label:hover{border-color:#be185d;transform:translateY(-1px)}
+        .btn-g{position:relative;overflow:hidden;background:linear-gradient(135deg,#be185d,#9d174d);transition:all .3s;border-radius:16px}
+        .btn-g::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.2),transparent);transition:left .5s}
+        .btn-g:hover::before{left:100%}
+        .btn-g:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(157,23,77,.3)}
+        .btn-g:active{transform:scale(.98)}
+        .g-card{transition:all .25s;border:1px solid rgba(0,0,0,.08);border-radius:14px}
+        .g-card:hover{background:rgba(0,0,0,.02);transform:translateX(3px);border-color:rgba(0,0,0,.15)}
+        .toast-c{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(80px);z-index:9999;transition:all .4s cubic-bezier(.68,-.55,.265,1.55);opacity:0;pointer-events:none}
+        .toast-c.show{transform:translateX(-50%) translateY(0);opacity:1;pointer-events:all}
+        .modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);z-index:1000;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s}
+        .modal-bg.on{opacity:1;pointer-events:all}
+        .modal-box{transform:scale(.92);transition:transform .3s}.modal-bg.on .modal-box{transform:scale(1)}
+        .scroll-area::-webkit-scrollbar{width:4px}.scroll-area::-webkit-scrollbar-track{background:transparent}.scroll-area::-webkit-scrollbar-thumb{background:rgba(0,0,0,.15);border-radius:10px}
+
+        .familia-card{position:relative;background:rgba(255,255,255,.85);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1.5px solid rgba(190,24,93,.1);border-radius:24px;padding:28px 24px;text-align:center;box-shadow:0 8px 32px rgba(0,0,0,.06),0 2px 8px rgba(0,0,0,.03);overflow:hidden}
+        .familia-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent 5%,#fbbf24 25%,#be185d 50%,#fbbf24 75%,transparent 95%);background-size:200% 100%;animation:shimmer 4s linear infinite}
+        .familia-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent 5%,#fbbf24 25%,#be185d 50%,#fbbf24 75%,transparent 95%);background-size:200% 100%;animation:shimmer 4s linear infinite}
+        .familia-separator{display:flex;align-items:center;gap:12px;margin:20px 0}
+        .familia-separator .line{flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(190,24,93,.2),transparent)}
+        .familia-separator .dot{width:6px;height:6px;border-radius:50%;background:linear-gradient(135deg,#fbbf24,#be185d)}
+        .familia-rol{font-family:'Cormorant Garamond',serif;font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:3px;color:#888;margin-bottom:6px}
+        .familia-nombres{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:#111;line-height:1.3}
+        .familia-nombres .ampersand{font-family:'Great Vibes',cursive;font-size:24px;font-weight:400;color:#be185d;margin:0 6px;display:inline-block;vertical-align:middle}
+
+        .invite-box{position:relative;background:rgba(255,255,255,.82);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1.5px solid rgba(190,24,93,.12);border-radius:20px;overflow:hidden}
+        .invite-box::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,#be185d,#fbbf24,#be185d,transparent);background-size:200% 100%;animation:shimmer 4s linear infinite}
+        .invite-box::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,#be185d,#fbbf24,#be185d,transparent);background-size:200% 100%;animation:shimmer 4s linear infinite}
+        .notice-box{background:rgba(255,255,255,.80);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border:1.5px solid rgba(0,0,0,.1);border-radius:16px;position:relative;overflow:hidden}
+        .notice-box::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#be185d,#ec4899,#be185d);background-size:200% 100%;animation:shimmer 3s linear infinite}
+        .sobre-box{background:rgba(255,255,255,.80);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border:1.5px solid rgba(0,0,0,.1);border-radius:16px;position:relative;overflow:hidden}
+        .sobre-box::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#fbbf24,#dc2626,#fbbf24);background-size:200% 100%;animation:shimmer 3s linear infinite}
+        .photo-slot{position:relative;overflow:hidden;border-radius:14px;border:2px dashed rgba(0,0,0,.15);transition:all .3s;cursor:pointer;aspect-ratio:1}
+        .photo-slot:hover{border-color:rgba(0,0,0,.3);background:rgba(0,0,0,.02)}
+        .photo-slot img{width:100%;height:100%;object-fit:cover}
+        .photo-slot .del-btn{position:absolute;top:4px;right:4px;width:22px;height:22px;border-radius:50%;background:rgba(220,38,38,.85);color:white;display:flex;align-items:center;justify-content:center;font-size:12px;opacity:0;transition:opacity .2s;cursor:pointer;border:none}
+        .photo-slot:hover .del-btn{opacity:1}
+        .main-photo-admin{position:relative;border-radius:16px;overflow:hidden;border:2px dashed rgba(0,0,0,.15);aspect-ratio:16/9;cursor:pointer;transition:all .3s}
+        .main-photo-admin:hover{border-color:rgba(0,0,0,.3);background:rgba(0,0,0,.02)}
+        .main-photo-admin img{width:100%;height:100%;object-fit:cover}
+        .main-photo-admin .overlay-hint{position:absolute;inset:0;background:rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .3s;color:white;font-family:'Cormorant Garamond',serif;font-size:15px}
+        .main-photo-admin:hover .overlay-hint{opacity:1}
+        .main-photo-admin .del-main{position:absolute;top:6px;right:6px;width:28px;height:28px;border-radius:50%;background:rgba(220,38,38,.85);color:white;display:flex;align-items:center;justify-content:center;font-size:14px;cursor:pointer;border:none;opacity:0;transition:opacity .2s}
+        .main-photo-admin:hover .del-main{opacity:1}
+        .has-photo .glass-card{background:rgba(255,255,255,.6);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-color:rgba(0,0,0,.1)}
+        .tx-dark{color:#111}.tx-sub{color:#333}.tx-muted{color:#666}
+
+        .video-card{position:relative;border-radius:24px;overflow:hidden;box-shadow:0 10px 40px rgba(0,0,0,.1),0 2px 10px rgba(0,0,0,.05);border:1.5px solid rgba(0,0,0,.08);background:#111;}
+        .video-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,#be185d,#fbbf24,#be185d,transparent);background-size:200% 100%;animation:shimmer 4s linear infinite;z-index:5;}
+        .video-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,#fbbf24,#be185d,#fbbf24,transparent);background-size:200% 100%;animation:shimmer 4s linear infinite;z-index:5;}
+        .video-916{position:relative;width:100%;aspect-ratio:9/16;max-height:55vh;margin:0 auto;border-radius:22px;overflow:hidden;background:#000;}
+        .video-916 video{width:100%;height:100%;object-fit:cover;}
+        .video-placeholder-916{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;background:linear-gradient(160deg,#1a1a2e 0%,#16213e 40%,#0f3460 100%);}
+        .video-placeholder-916 .vp-icon{width:60px;height:60px;border-radius:50%;border:2px solid rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;font-size:1.6rem;animation:pulse-pink 2.5s ease-out infinite;}
+
+        .float-modal{position:fixed;inset:0;z-index:2000;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.6);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);opacity:0;pointer-events:none;transition:opacity .35s}
+        .float-modal.on{opacity:1;pointer-events:all}
+        .float-modal-box{background:white;border-radius:24px;overflow:hidden;transform:scale(.9) translateY(20px);transition:transform .35s cubic-bezier(.4,0,.2,1);max-width:min(92vw,440px);width:100%;box-shadow:0 30px 80px rgba(0,0,0,.25)}
+        .float-modal.on .float-modal-box{transform:scale(1) translateY(0)}
+        .float-modal-box .fm-header{padding:16px 20px;display:flex;align-items:center;border-bottom:1px solid rgba(0,0,0,.08)}
+        .float-modal-box .fm-body{padding:20px}
+        .float-modal-box .fm-close{width:36px;height:36px;border-radius:50%;border:none;background:rgba(0,0,0,.06);color:#333;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0}
+        .float-modal-box .fm-close:hover{background:rgba(220,38,38,.1);color:#dc2626}
+        .click-zone{cursor:pointer;transition:all .3s}
+        .click-zone:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(0,0,0,.1)}
+        .click-zone:active{transform:scale(.97)}
+        .video-admin-slot{position:relative;border-radius:16px;overflow:hidden;border:2px dashed rgba(0,0,0,.15);aspect-ratio:9/16;cursor:pointer;transition:all .3s;background:linear-gradient(135deg,#f8f8f8,#f0f0f0)}
+        .video-admin-slot:hover{border-color:rgba(0,0,0,.3)}
+        .video-admin-slot video{width:100%;height:100%;object-fit:cover}
     </style>
 </head>
 <body>
-    <header>
-        <div class="container">
-            <div class="header-content">
-                <div class="logo-container">
-                    <img src="https://www.santa-priscila-admin.com/img/logo.png" alt="Logo Santa Priscila">
-                    <h1>Control de Proveedores - Santa Priscila</h1>
-                </div>
-                <button class="btn" id="btnAdmin" onclick="mostrarLogin()">
-                    <i class="fas fa-user-shield"></i> Soporte TI
-                </button>
-            </div>
-        </div>
-    </header>
+    <div id="petals"></div>
 
-    <main class="container" id="mainContent">
-        <div class="card">
-            <div class="card-header">
-                <i class="fas fa-user-plus"></i>
-                <h2>Registrar ingreso de proveedor</h2>
-            </div>
-            
-            <div class="form-group">
-                <label for="cedula">Número de cédula:</label>
-                <input type="text" id="cedula" placeholder="Ingrese número de cédula">
-            </div>
-            
-            <button class="btn-primary" onclick="buscarProveedor()">
-                <i class="fas fa-search"></i> Buscar
-            </button>
-
-            <div id="resultado" class="info-box"></div>
-
-            <div id="registroPlanta" style="display:none;">
-                <div class="form-group">
-                    <label for="planta">Seleccione planta de ingreso:</label>
-                    <select id="planta">
-                        <option value="">-- Seleccione una planta --</option>
-                        <option value="Planta 1">Planta 1</option>
-                        <option value="Planta 2">Planta 2</option>
-                        <option value="Planta 7">Planta 7</option>
-                        <option value="Textiles">Textiles</option>
-                    </select>
-                </div>
-                
-                <button class="btn-primary" onclick="registrarAsistencia()">
-                    <i class="fas fa-check"></i> Registrar ingreso
-                </button>
-            </div>
-        </div>
-
-        <div class="divider"></div>
-
-        <div class="card">
-            <div class="card-header">
-                <i class="fas fa-clipboard-list"></i>
-                <h2>Revisar asistencia</h2>
-            </div>
-            
-            <div class="form-group">
-                <label for="cedulaConsulta">Número de cédula:</label>
-                <input type="text" id="cedulaConsulta" placeholder="Ingrese número de cédula">
-            </div>
-            
-            <button class="btn-primary" onclick="consultarAsistencia()">
-                <i class="fas fa-search"></i> Consultar
-            </button>
-
-            <div id="resultadoConsulta" class="info-box"></div>
-        </div>
-    </main>
-
-    <!-- MODAL DE LOGIN -->
-    <div id="loginModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2><i class="fas fa-lock"></i> Iniciar sesión (Soporte TI)</h2>
-                <button class="close-btn" onclick="cancelarLogin()">&times;</button>
-            </div>
-            
-            <div class="form-group">
-                <label for="usuario">Usuario:</label>
-                <input type="text" id="usuario" placeholder="Ingrese su usuario">
-            </div>
-            
-            <div class="form-group">
-                <label for="contrasena">Contraseña:</label>
-                <input type="password" id="contrasena" placeholder="Ingrese su contraseña">
-            </div>
-            
-            <div style="display: flex; justify-content: space-between; gap: 10px;">
-                <button class="btn-primary" onclick="iniciarSesion()" style="flex: 1;">
-                    <i class="fas fa-sign-in-alt"></i> Entrar
-                </button>
-                <button class="btn" onclick="cancelarLogin()" style="flex: 1;">
-                    <i class="fas fa-times"></i> Cancelar
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- PANEL DE ADMINISTRADOR -->
-    <div id="adminPanel" class="admin-panel container">
-        <div class="admin-header">
-            <h2><i class="fas fa-cogs"></i> Panel de Administración - Santa Priscila</h2>
-            <button class="btn" onclick="cerrarSesion()">
-                <i class="fas fa-sign-out-alt"></i> Cerrar sesión
-            </button>
-        </div>
-
-        <!-- Estadísticas solo para administradores -->
-        <div class="stats-container">
-            <div class="stat-card">
-                <i class="fas fa-users"></i>
-                <div class="stat-value" id="totalProviders">3</div>
-                <div class="stat-label">Total de Proveedores</div>
-            </div>
-            <div class="stat-card">
-                <i class="fas fa-check-circle"></i>
-                <div class="stat-value" id="authorizedProviders">2</div>
-                <div class="stat-label">Proveedores Autorizados</div>
-            </div>
-            <div class="stat-card">
-                <i class="fas fa-times-circle"></i>
-                <div class="stat-value" id="unauthorizedProviders">1</div>
-                <div class="stat-label">Proveedores No Autorizados</div>
-            </div>
-            <div class="stat-card">
-                <i class="fas fa-clock"></i>
-                <div class="stat-value" id="todayVisits">0</div>
-                <div class="stat-label">Visitas Hoy</div>
-            </div>
-            <div class="stat-card">
-                <i class="fas fa-building"></i>
-                <div class="stat-value">4</div>
-                <div class="stat-label">Plantas Disponibles</div>
-            </div>
-        </div>
-
-        <div class="tabs">
-            <div class="tab active" onclick="switchTab('addProvider')">Agregar Proveedor</div>
-            <div class="tab" onclick="switchTab('listProviders')">Lista de Proveedores</div>
-            <div class="tab" onclick="switchTab('attendanceHistory')">Historial de Asistencias</div>
-        </div>
-
-        <div id="addProvider" class="tab-content active">
-            <h3>Agregar nuevo proveedor</h3>
-            
-            <div class="form-group">
-                <label for="nuevoCedula">Cédula:</label>
-                <input type="text" id="nuevoCedula" placeholder="Número de cédula">
-            </div>
-            
-            <div class="form-group">
-                <label for="nuevoNombre">Nombres:</label>
-                <input type="text" id="nuevoNombre" placeholder="Nombres completos">
-            </div>
-            
-            <div class="form-group">
-                <label for="nuevoApellido">Apellidos:</label>
-                <input type="text" id="nuevoApellido" placeholder="Apellidos completos">
-            </div>
-            
-            <div class="form-group">
-                <label for="nuevaEmpresa">Empresa:</label>
-                <input type="text" id="nuevaEmpresa" placeholder="Nombre de la empresa">
-            </div>
-            
-            <div class="form-group">
-                <label for="nuevoEstado">Estado:</label>
-                <select id="nuevoEstado">
-                    <option value="true">Autorizado</option>
-                    <option value="false">No autorizado</option>
-                </select>
-            </div>
-            
-            <button class="btn-primary" onclick="agregarProveedor()">
-                <i class="fas fa-plus-circle"></i> Agregar proveedor
-            </button>
-        </div>
-
-        <div id="listProviders" class="tab-content">
-            <div class="provider-section authorized">
-                <h3><i class="fas fa-check-circle"></i> Proveedores Autorizados</h3>
-                <div class="provider-list" id="listaProveedoresAutorizados"></div>
-            </div>
-            
-            <div class="provider-section unauthorized">
-                <h3><i class="fas fa-times-circle"></i> Proveedores No Autorizados</h3>
-                <div class="provider-list" id="listaProveedoresNoAutorizados"></div>
-            </div>
-        </div>
-
-        <div id="attendanceHistory" class="tab-content">
-            <h3>Historial de asistencias</h3>
-            <div class="provider-list" id="historialAsistencias"></div>
-        </div>
-    </div>
-
-    <!-- NOTIFICACIÓN -->
-    <div id="notification" class="notification">
-        <i class="fas fa-check-circle"></i>
-        <span id="notificationMessage">Operación realizada con éxito</span>
-    </div>
-
-    <script>
-        // --- Base de datos simulada ---
-        let proveedores = [
-            { cedula: "1234567890", nombres: "Juan", apellidos: "Pérez", empresa: "AgroExport SA", autorizado: true },
-            { cedula: "0987654321", nombres: "María", apellidos: "Lopez", empresa: "TransServicios", autorizado: false },
-            { cedula: "1122334455", nombres: "Carlos", apellidos: "Gómez", empresa: "Insumos del Campo", autorizado: true }
-        ];
-
-        let asistencias = [];
-        let esAdmin = false;
-
-        // Actualizar estadísticas iniciales
-        updateStats();
-
-        // Mostrar login
-        function mostrarLogin() {
-            document.getElementById('loginModal').style.display = 'block';
-            document.getElementById('mainContent').style.display = 'none';
-            document.getElementById('btnAdmin').style.display = 'none';
-            
-            // Limpiar campos de login cada vez que se abre
-            document.getElementById('usuario').value = '';
-            document.getElementById('contrasena').value = '';
-        }
-
-        // Cancelar login
-        function cancelarLogin() {
-            document.getElementById('loginModal').style.display = 'none';
-            document.getElementById('mainContent').style.display = 'block';
-            document.getElementById('btnAdmin').style.display = 'block';
-
-            // Limpiar campos
-            document.getElementById('usuario').value = '';
-            document.getElementById('contrasena').value = '';
-        }
-
-        // Iniciar sesión administrador
-        function iniciarSesion() {
-            const usuario = document.getElementById('usuario').value.trim();
-            const contrasena = document.getElementById('contrasena').value.trim();
-
-            if (usuario === "admin" && contrasena === "clavito01") {
-                esAdmin = true;
-                document.getElementById('loginModal').style.display = 'none';
-                document.getElementById('adminPanel').style.display = 'block';
-                mostrarListaProveedores();
-                mostrarHistorialAsistencias();
-                showNotification('Sesión iniciada correctamente', 'success');
-            } else {
-                showNotification('Usuario o contraseña incorrectos', 'error');
-            }
-        }
-
-        // Cerrar sesión
-        function cerrarSesion() {
-            esAdmin = false;
-            document.getElementById('adminPanel').style.display = 'none';
-            document.getElementById('mainContent').style.display = 'block';
-            document.getElementById('btnAdmin').style.display = 'block';
-
-            // Limpiar credenciales del login para la próxima vez
-            document.getElementById('usuario').value = '';
-            document.getElementById('contrasena').value = '';
-            
-            showNotification('Sesión cerrada correctamente', 'success');
-        }
-
-        // Cambiar tab en panel de administración
-        function switchTab(tabName) {
-            // Ocultar todos los contenidos de tabs
-            const tabContents = document.querySelectorAll('.tab-content');
-            tabContents.forEach(content => {
-                content.classList.remove('active');
-            });
-            
-            // Quitar clase active de todos los tabs
-            const tabs = document.querySelectorAll('.tab');
-            tabs.forEach(tab => {
-                tab.classList.remove('active');
-            });
-            
-            // Mostrar el tab seleccionado
-            document.getElementById(tabName).classList.add('active');
-            
-            // Añadir clase active al tab clickeado
-            event.target.classList.add('active');
-            
-            // Actualizar contenido específico si es necesario
-            if (tabName === 'listProviders') {
-                mostrarListaProveedores();
-            } else if (tabName === 'attendanceHistory') {
-                mostrarHistorialAsistencias();
-            }
-        }
-
-        // --- Funciones para control de asistencia ---
-        function buscarProveedor() {
-            const cedula = document.getElementById('cedula').value.trim();
-            const proveedor = proveedores.find(p => p.cedula === cedula);
-            const divResultado = document.getElementById('resultado');
-            const divPlanta = document.getElementById('registroPlanta');
-
-            if (proveedor) {
-                divResultado.style.display = 'block';
-                let html = `
-                    <div class="info-row">
-                        <div class="info-label">Nombres:</div>
-                        <div>${proveedor.nombres}</div>
-                    </div>
-                    <div class="info-row">
-                        <div class="info-label">Apellidos:</div>
-                        <div>${proveedor.apellidos}</div>
-                    </div>
-                    <div class="info-row">
-                        <div class="info-label">Cédula:</div>
-                        <div>${proveedor.cedula}</div>
-                    </div>
-                    <div class="info-row">
-                        <div class="info-label">Empresa:</div>
-                        <div>${proveedor.empresa}</div>
-                    </div>
-                    <div class="info-row">
-                        <div class="info-label">Estado:</div>
-                        <div>${proveedor.autorizado ? 
-                            '<span class="provider-status status-authorized">✅ Autorizado</span>' : 
-                            '<span class="provider-status status-unauthorized">❌ No autorizado</span>'}
+    <!-- SOBRE -->
+    <div id="env-screen" class="bg-main">
+        <div class="spark" style="top:8%;left:12%;animation-delay:0s"></div>
+        <div class="spark" style="top:15%;right:15%;animation-delay:.7s;width:5px;height:5px"></div>
+        <div class="spark" style="bottom:20%;left:20%;animation-delay:1.4s"></div>
+        <div class="spark" style="bottom:30%;right:10%;animation-delay:.3s;width:7px;height:7px"></div>
+        <div class="spark" style="top:50%;left:5%;animation-delay:1s;width:5px;height:5px"></div>
+        <div class="spark" style="top:65%;right:22%;animation-delay:1.8s"></div>
+        <div class="env-scene" id="env-scene">
+            <div class="env-wrap" onclick="openEnv()">
+                <div class="env-flap" id="env-flap"></div>
+                <div class="seal" id="env-seal"><span class="text-3xl heart-beat">😍</span></div>
+                <div class="env-body">
+                    <div class="text-center relative z-10">
+                        <div class="inline-block mb-4 px-4 py-1.5 rounded-full border border-pink-300/30 bg-pink-100/50">
+                            <p class="font-display text-xs font-semibold tracking-[0.25em] uppercase tx-sub">Sobre Cerrado</p>
+                        </div>
+                        <div class="crown-tilt inline-block mb-3"><span class="text-4xl glow">👑</span></div>
+                        <p class="font-script text-4xl shimmer leading-tight mb-2">XV Años</p>
+                        <div class="flex items-center justify-center gap-2 my-4">
+                            <div class="h-px w-14 bg-gradient-to-r from-transparent to-pink-400/60"></div>
+                            <span class="text-pink-500 text-sm twinkle">✦</span>
+                            <div class="h-px w-14 bg-gradient-to-l from-transparent to-pink-400/60"></div>
+                        </div>
+                        <p class="font-display text-2xl tx-dark font-bold">Gaby Criollo Garcia</p>
+                        <div class="mt-6 flex items-center justify-center gap-1.5">
+                            <span class="text-sm tx-muted font-elegant">Toca el sello para abrir</span>
+                            <span class="text-base float">👋</span>
                         </div>
                     </div>
-                `;
-                
-                if (!proveedor.autorizado) {
-                    html += `
-                        <div class="alert alert-warning">
-                            <i class="fas fa-exclamation-triangle"></i>
-                            <span>Por favor, llame al jefe del departamento indicado para su autorización de ingreso.</span>
-                        </div>
-                    `;
-                }
-                
-                divResultado.innerHTML = html;
-                divPlanta.style.display = proveedor.autorizado ? 'block' : 'none';
-            } else {
-                divResultado.style.display = 'block';
-                divResultado.innerHTML = `
-                    <div class="alert alert-warning">
-                        <i class="fas fa-info-circle"></i>
-                        <span>No se encontró ningún proveedor con esa cédula.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PANTALLA PRINCIPAL -->
+    <div id="main-screen" class="main-c bg-main">
+        <div class="full-photo-bg" id="full-photo-bg">
+            <img id="full-photo-img" src="" alt="">
+            <div class="overlay-base"></div>
+            <div class="overlay-vignette"></div>
+            <div class="overlay-blur"></div>
+        </div>
+
+        <div class="spark" style="top:5%;left:8%;animation-delay:0s;z-index:5"></div>
+        <div class="spark" style="top:12%;right:12%;animation-delay:.8s;width:5px;height:5px;z-index:5"></div>
+        <div class="spark" style="bottom:10%;left:15%;animation-delay:1.5s;z-index:5"></div>
+
+        <header class="content-layer flex-shrink-0 px-3 pt-3 pb-2 relative z-20">
+            <div class="max-w-lg mx-auto">
+                <div class="flex items-center justify-between mb-2">
+                    <div class="flex items-center gap-1.5"><span class="text-xl crown-tilt inline-block">👑</span><span class="font-script text-2xl tx-dark">XV</span></div>
+                    <div class="flex items-center gap-1 bg-white/70 border border-black/10 rounded-full px-3 py-1 shadow-sm">
+                        <span class="text-xs twinkle">✨</span>
+                        <span id="nav-count" class="font-display font-bold text-sm tx-dark">0</span>
+                        <span class="text-xs tx-muted font-elegant">van</span>
                     </div>
-                `;
-                divPlanta.style.display = 'none';
-            }
-        }
+                </div>
+                <div class="text-center mb-2.5">
+                    <h1 class="font-script text-5xl shimmer leading-tight">Gaby Criollo Garcia</h1>
+                </div>
+                <div class="flex gap-1.5 justify-center">
+                    <button onclick="swTab('home')" id="t-home" class="tab-b active rounded-full px-4 py-2 font-display font-semibold flex items-center gap-1"><span>👑</span>Inicio</button>
+                    <button onclick="swTab('rsvp')" id="t-rsvp" class="tab-b rounded-full px-4 py-2 font-display font-semibold flex items-center gap-1"><span>💌</span>Confirmar</button>
+                    <button onclick="swTab('admin')" id="t-admin" class="tab-b rounded-full px-4 py-2 font-display font-semibold flex items-center gap-1"><span>🔒</span>Admin</button>
+                </div>
+            </div>
+        </header>
 
-        function registrarAsistencia() {
-            const cedulaInput = document.getElementById('cedula');
-            const plantaInput = document.getElementById('planta');
-            const divResultado = document.getElementById('resultado');
-            const divPlanta = document.getElementById('registroPlanta');
+        <main class="content-layer flex-1 overflow-y-auto scroll-area px-3 pb-4 relative z-10">
+            <div class="max-w-lg mx-auto">
 
-            const cedula = cedulaInput.value.trim();
-            const planta = plantaInput.value;
+                <!-- INICIO -->
+                <div id="p-home" class="tp fade-up">
+                    <div class="grid grid-cols-3 gap-2 mb-3">
+                        <div class="glass-card bg-white/70 backdrop-blur-sm rounded-2xl p-3 border border-black/8 text-center shadow-sm"><p class="text-lg">✅</p><p id="c-yes" class="font-display text-2xl font-bold tx-dark">0</p><p class="text-xs tx-muted uppercase tracking-wider font-display font-semibold">Confirmados</p></div>
+                        <div class="glass-card bg-white/70 backdrop-blur-sm rounded-2xl p-3 border border-black/8 text-center shadow-sm"><p class="text-lg">📊</p><p id="c-total" class="font-display text-2xl font-bold tx-dark">0</p><p class="text-xs tx-muted uppercase tracking-wider font-display font-semibold">Respuestas</p></div>
+                        <div class="glass-card bg-white/70 backdrop-blur-sm rounded-2xl p-3 border border-black/8 text-center shadow-sm"><p class="text-lg">😢</p><p id="c-no" class="font-display text-2xl font-bold text-red-600">0</p><p class="text-xs text-red-500 uppercase tracking-wider font-display font-semibold">No asisten</p></div>
+                    </div>
 
-            if (!cedula || !planta) {
-                showNotification('Debe ingresar una cédula válida y seleccionar una planta', 'error');
-                return;
-            }
+                    <div id="home-gallery" class="hidden mb-3"><div id="gallery-grid" class="grid grid-cols-2 gap-2"></div></div>
 
-            const fecha = new Date().toLocaleString();
-            asistencias.push({ cedula, planta, fecha });
-            showNotification('Asistencia registrada correctamente', 'success');
-            updateStats();
-
-            // Vaciar campos y limpiar resultados
-            cedulaInput.value = '';
-            plantaInput.value = '';
-            divResultado.style.display = 'none';
-            divPlanta.style.display = 'none';
-        }
-
-        function consultarAsistencia() {
-            const cedulaInput = document.getElementById('cedulaConsulta');
-            const cedula = cedulaInput.value.trim();
-            const registros = asistencias.filter(a => a.cedula === cedula);
-            const div = document.getElementById('resultadoConsulta');
-
-            if (registros.length > 0) {
-                let html = "<h3>Asistencias registradas:</h3>";
-                
-                registros.forEach(r => {
-                    const proveedor = proveedores.find(p => p.cedula === cedula);
-                    const nombreProveedor = proveedor ? 
-                        `${proveedor.nombres} ${proveedor.apellidos}` : 
-                        'Proveedor no encontrado';
-                    
-                    html += `
-                        <div class="provider-item">
-                            <div class="provider-info">
-                                <strong>${nombreProveedor}</strong> (${r.cedula})
-                                <br>
-                                <i class="fas fa-building"></i> ${r.planta} - 
-                                <i class="fas fa-calendar"></i> ${r.fecha}
+                    <!-- TITULO -->
+                    <div class="invite-box p-5 mb-3 soft-glow">
+                        <div class="text-center">
+                            <div class="flex items-center justify-center gap-3 mb-3">
+                                <div class="h-px w-12 bg-gradient-to-r from-transparent to-amber-400/60"></div>
+                                <span class="text-amber-500 text-base twinkle">✦</span>
+                                <div class="h-px w-12 bg-gradient-to-l from-transparent to-amber-400/60"></div>
+                            </div>
+                            <p class="font-elegant text-base tx-muted mb-1 tracking-wide">La fiesta de</p>
+                            <div class="my-3"><p class="font-script text-6xl tx-dark leading-tight drop-shadow-md">Mis Quince Años</p></div>
+                            <p class="font-display text-2xl tx-dark font-bold">Gaby Criollo Garcia</p>
+                            <div class="flex items-center justify-center gap-2 mt-3">
+                                <div class="h-px w-12 bg-gradient-to-r from-transparent to-amber-400/60"></div>
+                                <span class="text-amber-500 text-base twinkle">✦</span>
+                                <div class="h-px w-12 bg-gradient-to-l from-transparent to-amber-400/60"></div>
                             </div>
                         </div>
-                    `;
-                });
-                
-                div.innerHTML = html;
+                    </div>
+
+                    <!-- ===== VIDEO 9:16 DIRECTO ===== -->
+                    <div class="video-card mb-3" id="video-card-home">
+                        <div class="video-916" id="video-916-wrap">
+                            <video id="home-video" autoplay loop muted playsinline></video>
+                            <div class="video-placeholder-916" id="video-placeholder">
+                                <div class="vp-icon">🎬</div>
+                                <p class="font-script text-2xl text-white/70">Pronto disponible</p>
+                                <p class="font-elegant text-sm text-white/30">El video se subira proximamente</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PAPAS Y PADRINOS -->
+                    <div class="familia-card mb-3">
+                        <p class="font-script text-3xl tx-dark mb-1">Con mucho amor</p>
+                        <p class="font-elegant text-sm tx-muted mb-4">Las personas mas especiales en mi dia</p>
+                        <div class="mb-1">
+                            <div class="flex items-center justify-center gap-2 mb-2">
+                                <div class="h-px w-8 bg-gradient-to-r from-transparent to-pink-300/50"></div>
+                                <span class="text-sm">❤️</span>
+                                <p class="familia-rol">Mis Padres</p>
+                                <span class="text-sm">❤️</span>
+                                <div class="h-px w-8 bg-gradient-to-l from-transparent to-pink-300/50"></div>
+                            </div>
+                            <p class="familia-nombres">Pablo Criollo <span class="ampersand">y</span> Marilu Garcia</p>
+                        </div>
+                        <div class="familia-separator">
+                            <div class="line"></div>
+                            <div class="dot twinkle"></div>
+                            <span class="font-script text-xl text-amber-600/70">✦</span>
+                            <div class="dot twinkle" style="animation-delay:.5s"></div>
+                            <div class="line"></div>
+                        </div>
+                        <div>
+                            <div class="flex items-center justify-center gap-2 mb-2">
+                                <div class="h-px w-8 bg-gradient-to-r from-transparent to-amber-300/50"></div>
+                                <span class="text-sm">🌟</span>
+                                <p class="familia-rol">Mis Padrinos</p>
+                                <span class="text-sm">🌟</span>
+                                <div class="h-px w-8 bg-gradient-to-l from-transparent to-amber-300/50"></div>
+                            </div>
+                            <p class="familia-nombres">Angel Garcia <span class="ampersand">y</span> Veronica Naranjo</p>
+                        </div>
+                    </div>
+
+                    <!-- SOBRE CERRADO -->
+                    <div class="sobre-box p-4 mb-3">
+                        <div class="flex items-start gap-3">
+                            <div class="flex-shrink-0"><svg width="60" height="50" viewBox="0 0 60 50" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="12" width="56" height="36" rx="3" fill="#fef3c7" stroke="#f59e0b" stroke-width="1.5"/><path d="M2,12 L30,32 L58,12" fill="none" stroke="#f59e0b" stroke-width="1.5"/><path d="M2,12 L30,32 L58,12 L58,8 Q58,4 54,4 L6,4 Q2,4 2,8 Z" fill="#fbbf24" opacity="0.8" stroke="#f59e0b" stroke-width="1"/><circle cx="30" cy="20" r="6" fill="#dc2626" opacity="0.85" class="seal-pulse"/><text x="30" y="23" font-size="7" fill="white" text-anchor="middle" font-weight="bold">$</text></svg></div>
+                            <div class="flex-1">
+                                <div class="flex items-center gap-2 mb-1"><span class="text-xl">🎁</span><p class="font-display font-bold text-base tx-dark">Sobre Cerrado</p></div>
+                                <p class="font-elegant text-base tx-sub leading-relaxed">La tradicion del <span class="text-amber-700 font-bold">sobre cerrado</span> es el regalo ideal. Un sobre sellado con tu aportacion sera bien recibido por la quinceanera.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- AVISO CELESTE -->
+                    <div class="notice-box p-4 mb-3">
+                        <div class="flex items-start gap-2.5">
+                            <span class="text-2xl flex-shrink-0 mt-0.5">👗</span>
+                            <div>
+                                <p class="font-display font-bold text-base tx-dark mb-1">Aviso de Vestimenta</p>
+                                <p class="font-elegant text-base tx-sub leading-relaxed">Solo la quinceanera tiene reservado el color <span class="text-sky-600 font-bold">celeste</span>. Por favor, al elegir tu outfit, <span class="text-amber-700 font-bold">evitar ese color</span> para que Gaby brille unica esa noche.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Detalles -->
+                    <div class="grid grid-cols-3 gap-2 mb-3">
+                        <div class="glass-card bg-white/70 backdrop-blur-sm rounded-2xl p-3 border border-black/8 text-center shadow-sm group hover:shadow-md hover:-translate-y-0.5 transition-all"><div class="text-2xl mb-1 group-hover:scale-110 transition-transform">📅</div><p class="font-display text-xs tx-muted font-semibold uppercase tracking-wider">Fecha</p><p class="font-display text-base tx-dark font-bold mt-0.5">Sab 17 Oct</p></div>
+                        <div class="glass-card bg-white/70 backdrop-blur-sm rounded-2xl p-3 border border-black/8 text-center shadow-sm group hover:shadow-md hover:-translate-y-0.5 transition-all"><div class="text-2xl mb-1 group-hover:scale-110 transition-transform">🕐</div><p class="font-display text-xs tx-muted font-semibold uppercase tracking-wider">Hora</p><p class="font-display text-base tx-dark font-bold mt-0.5">7:00 PM</p></div>
+                        <div onclick="openFloatModal('location')" class="click-zone glass-card bg-white/70 backdrop-blur-sm rounded-2xl p-3 border border-black/8 text-center shadow-sm group hover:shadow-md">
+                            <div class="text-2xl mb-1 group-hover:scale-110 transition-transform">📍</div>
+                            <p class="font-display text-xs tx-muted font-semibold uppercase tracking-wider">Lugar</p>
+                            <p class="font-display text-sm tx-dark font-bold mt-0.5 leading-tight">Terminal<br>Terrestre</p>
+                            <p class="text-xs text-pink-600 font-semibold mt-1 click-hint">Haga click</p>
+                        </div>
+                    </div>
+
+                    <button onclick="swTab('rsvp')" class="btn-g w-full py-4 text-white font-display font-bold text-lg tracking-wider flex items-center justify-center gap-2 pulse-pink mb-4"><span>Confirmar Mi Asistencia</span><span>😍</span></button>
+
+                    <div class="grid grid-cols-3 gap-3 mb-2">
+                        <div class="emoji-card glass-card p-box h-36 shadow-sm flex flex-col items-center justify-center gap-1" onclick="openFloatModal('suenos')"><span class="emoji-icon text-5xl">✨</span><p class="font-script text-2xl tx-dark drop-shadow">Sueños</p><p class="text-xs text-pink-600 font-semibold click-hint">Haga click</p></div>
+                        <div class="emoji-card glass-card p-box h-36 shadow-sm flex flex-col items-center justify-center gap-1" onclick="openFloatModal('magia')"><span class="emoji-icon text-5xl">🦋</span><p class="font-script text-2xl tx-dark drop-shadow">Magia</p><p class="text-xs text-pink-600 font-semibold click-hint">Haga click</p></div>
+                        <div class="emoji-card glass-card p-box h-36 shadow-sm flex flex-col items-center justify-center gap-1" onclick="openFloatModal('amor')"><span class="emoji-icon text-5xl">💖</span><p class="font-script text-2xl tx-dark drop-shadow">Amor</p><p class="text-xs text-pink-600 font-semibold click-hint">Haga click</p></div>
+                    </div>
+                    <p class="text-center text-sm tx-muted font-elegant mb-4">Toca las tarjetas para una sorpresa</p>
+
+                    <!-- ===== NUEVO: SALUDO PERSONALIZADO AL FINAL ===== -->
+                    <div id="guest-greeting-box" class="invite-box p-5 mb-4 text-center hidden">
+                        <div class="flex items-center justify-center gap-3 mb-2">
+                            <div class="h-px w-10 bg-gradient-to-r from-transparent to-amber-400/60"></div>
+                            <span class="text-amber-500 text-sm twinkle">✦</span>
+                            <div class="h-px w-10 bg-gradient-to-l from-transparent to-amber-400/60"></div>
+                        </div>
+                        <p class="font-elegant text-base tx-muted tracking-wide">Cordialmente invitados</p>
+                        <p id="guest-name-display" class="font-display text-xl tx-dark font-bold mt-1"></p>
+                        <div class="flex items-center justify-center gap-3 mt-2">
+                            <div class="h-px w-10 bg-gradient-to-r from-transparent to-amber-400/60"></div>
+                            <span class="text-amber-500 text-sm twinkle">✦</span>
+                            <div class="h-px w-10 bg-gradient-to-l from-transparent to-amber-400/60"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CONFIRMAR -->
+                <div id="p-rsvp" class="tp hidden">
+                    <div class="fade-up">
+                        <div class="p-box h-20 mb-3 shadow-sm"><div class="scene"><svg viewBox="0 0 400 90" xmlns="http://www.w3.org/2000/svg"><rect width="400" height="90" fill="#fce7f3" rx="16"/><circle cx="200" cy="45" r="15" fill="#ec4899" opacity="0.08"/><circle cx="200" cy="45" r="8" fill="#ec4899" opacity="0.06"/></svg><div class="absolute inset-0 z-10 flex items-center justify-center"><p class="font-script text-3xl tx-dark drop-shadow">Tu presencia es mi regalo</p></div></div></div>
+                        <form id="rsvp-form" onsubmit="return submitRSVP(event)" class="bg-white/75 backdrop-blur-sm rounded-2xl p-5 border border-black/10 shadow-lg">
+                            <div class="mb-4"><label class="block tx-dark font-display font-bold text-base mb-2 flex items-center gap-1.5"><span class="text-lg">👤</span> Tu nombre completo *</label><input type="text" id="f-name" required placeholder="Escribe tu nombre..." class="inp w-full px-4 py-3"></div>
+                            <div class="mb-4"><label class="block tx-dark font-display font-bold text-base mb-2 flex items-center gap-1.5"><span class="text-lg">💕</span> ¿Asistiras? *</label><div class="rad flex gap-3"><input type="radio" name="att" id="att-y" value="yes" required onchange="togComp()"><label for="att-y">Si, ire</label><input type="radio" name="att" id="att-n" value="no" onchange="togComp()"><label for="att-n">No puedo</label></div></div>
+                            <div id="comp-sec" class="hidden mb-4"><div class="flex items-center justify-between mb-2"><label class="tx-dark font-display font-bold text-base flex items-center gap-1.5"><span class="text-lg">👥</span> Acompanantes</label><button type="button" onclick="addComp()" class="text-sm bg-pink-100 hover:bg-pink-200 tx-dark font-display font-semibold px-3 py-1.5 rounded-full border border-pink-200 transition-all hover:scale-105 flex items-center gap-1">+ Agregar</button></div><p class="tx-muted text-sm mb-2">Nombre de cada acompanante</p><div id="comp-list" class="space-y-2"></div></div>
+                            <div class="mb-5"><label class="block tx-dark font-display font-bold text-base mb-2 flex items-center gap-1.5"><span class="text-lg">💬</span> Mensaje <span class="tx-muted font-normal text-sm">(opcional)</span></label><textarea id="f-msg" rows="3" placeholder="Escribe tus deseos..." class="inp w-full px-4 py-3 resize-none"></textarea></div>
+                            <button type="submit" class="btn-g w-full py-3.5 text-white font-display font-bold text-base tracking-wider flex items-center justify-center gap-2"><span>Guardar Confirmacion</span><span>👑</span></button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- ADMIN -->
+                <div id="p-admin" class="tp hidden">
+                    <div id="adm-out" class="fade-up">
+                        <div class="bg-white/75 backdrop-blur-sm rounded-2xl p-5 border border-black/10 shadow-lg text-center">
+                            <div class="p-box h-24 mb-4 shadow-sm"><div class="scene"><svg viewBox="0 0 400 100" xmlns="http://www.w3.org/2000/svg"><rect width="400" height="100" fill="#fce7f3" rx="16"/></svg><div class="absolute inset-0 z-10 flex items-center justify-center"><p class="font-script text-2xl tx-sub drop-shadow">Area Privada</p></div></div></div>
+                            <form onsubmit="return doLogin(event)">
+                                <input type="text" id="l-user" required placeholder="Usuario" class="inp w-full px-4 py-3 text-center text-base tracking-wider mb-2">
+                                <input type="password" id="l-pass" required placeholder="Contraseña" class="inp w-full px-4 py-3 text-center text-base tracking-widest mb-3">
+                                <button type="submit" class="btn-g w-full py-3 text-white font-display font-bold text-base flex items-center justify-center gap-2">Ingresar <span>🔑</span></button>
+                            </form>
+                        </div>
+                    </div>
+                    <div id="adm-in" class="hidden fade-up">
+                        <div class="bg-white/75 rounded-2xl p-4 border border-black/10 mb-3">
+                            <div class="flex items-center gap-2 mb-3"><span>👑</span><p class="font-display font-bold text-base tx-dark">Foto de Fondo (pantalla completa)</p></div>
+                            <div class="main-photo-admin" id="main-photo-slot" onclick="document.getElementById('main-photo-input').click()">
+                                <div id="main-photo-placeholder" style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;background:linear-gradient(135deg,#fce7f3,#fdf2f8);flex-direction:column;gap:8px"><span style="font-size:3rem;opacity:.3">📷</span><p style="color:#666;font-family:'Cormorant Garamond',serif;font-size:15px">Toca para subir la foto de fondo</p></div>
+                                <img id="main-photo-img" class="hidden" alt="Foto quinceanera">
+                                <div class="overlay-hint" id="main-photo-hint" style="display:none"><span>Cambiar foto</span></div>
+                                <button class="del-main" id="main-photo-del" style="display:none" onclick="event.stopPropagation();deleteMainPhoto()">✕</button>
+                            </div>
+                            <input type="file" accept="image/*" class="hidden" id="main-photo-input" onchange="handleMainPhotoUpload(event)">
+                        </div>
+                        <div class="bg-white/75 rounded-2xl p-4 border border-black/10 mb-3">
+                            <div class="flex items-center justify-between mb-3"><div class="flex items-center gap-2"><span>🎬</span><p class="font-display font-bold text-base tx-dark">Video (formato 9:16)</p></div><button onclick="deleteVideo()" id="del-video-btn" class="text-sm px-2.5 py-1 rounded-full bg-red-50 text-red-600 border border-red-200 font-display font-semibold transition-all hover:bg-red-100" style="display:none">Eliminar video</button></div>
+                            <div class="video-admin-slot" id="video-admin-slot" onclick="document.getElementById('video-input').click()">
+                                <div id="video-admin-placeholder" style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;flex-direction:column;gap:8px"><span style="font-size:3rem;opacity:.3">🎥</span><p style="color:#666;font-family:'Cormorant Garamond',serif;font-size:15px">Toca para subir un video</p><p style="color:#999;font-family:'Cormorant Garamond',serif;font-size:12px">MP4, WebM o MOV · 9:16 recomendado</p></div>
+                                <video id="video-admin-preview" class="hidden" muted loop playsinline></video>
+                                <div class="overlay-hint" id="video-admin-hint" style="display:none"><span>Cambiar video</span></div>
+                            </div>
+                            <input type="file" accept="video/*" class="hidden" id="video-input" onchange="handleVideoUpload(event)">
+                            <p class="text-sm tx-muted font-elegant mt-2">El video se reproduce en loop automatico. Formato vertical 9:16 recomendado.</p>
+                        </div>
+                        <div class="grid grid-cols-3 gap-2 mb-3">
+                            <div class="bg-green-50 rounded-xl p-3 text-center border border-green-200/50"><p id="a-yes" class="font-display text-xl font-bold text-green-700">0</p><p class="text-xs text-green-600 uppercase tracking-wider font-display font-semibold">Van</p></div>
+                            <div class="bg-red-50 rounded-xl p-3 text-center border border-red-200/50"><p id="a-no" class="font-display text-xl font-bold text-red-600">0</p><p class="text-xs text-red-500 uppercase tracking-wider font-display font-semibold">No van</p></div>
+                            <div class="bg-pink-50 rounded-xl p-3 text-center border border-pink-200/50"><p id="a-ppl" class="font-display text-xl font-bold tx-dark">0</p><p class="text-xs tx-muted uppercase tracking-wider font-display font-semibold">Personas</p></div>
+                        </div>
+                        <div class="bg-white/75 rounded-2xl p-4 border border-black/10 mb-3">
+                            <div class="flex items-center justify-between mb-3"><div class="flex items-center gap-2"><span>📸</span><p class="font-display font-bold text-base tx-dark">Galeria de Fotos</p></div><span class="text-sm tx-muted font-elegant" id="photo-count">0/5</span></div>
+                            <div id="photo-slots" class="grid grid-cols-5 gap-2 mb-3"></div>
+                            <label class="block w-full py-3 rounded-xl border-2 border-dashed border-black/15 text-center cursor-pointer hover:bg-black/[.02] transition-all"><input type="file" accept="image/*" class="hidden" id="photo-input" onchange="handlePhotoUpload(event)"><span class="tx-muted text-base font-elegant">Toca para subir una foto</span></label>
+                        </div>
+                        <div class="flex items-center gap-2 mb-3 flex-wrap">
+                            <button onclick="setF('yes')" id="f-yes" class="text-sm px-3 py-1.5 rounded-full bg-green-100 text-green-800 border border-green-200 font-display font-semibold transition-all">Van</button>
+                            <button onclick="setF('no')" id="f-no" class="text-sm px-3 py-1.5 rounded-full bg-white/60 tx-muted border border-black/10 font-display font-semibold transition-all">No van</button>
+                            <button onclick="setF('all')" id="f-all" class="text-sm px-3 py-1.5 rounded-full bg-white/60 tx-muted border border-black/10 font-display font-semibold transition-all">Todos</button>
+                            <div class="flex-1"></div>
+                            <button onclick="expCSV()" class="text-sm px-2.5 py-1.5 rounded-full bg-white/60 tx-muted border border-black/10 font-display font-semibold transition-all hover:bg-black/5">📥</button>
+                            <button onclick="clrAll()" class="text-sm px-2.5 py-1.5 rounded-full bg-red-50 text-red-600 border border-red-200 font-display font-semibold transition-all hover:bg-red-100">🗑️</button>
+                            <button onclick="doOut()" class="text-sm px-2.5 py-1.5 rounded-full bg-white/60 tx-muted border border-black/10 font-display font-semibold transition-all hover:bg-black/5">Salir</button>
+                        </div>
+                        <div id="g-list" class="space-y-2 pb-4 scroll-area overflow-y-auto" style="max-height:calc(100dvh - 560px)"></div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- VENTANA FLOTANTE -->
+    <div id="float-modal" class="float-modal" onclick="if(event.target===this)closeFloatModal()">
+        <div class="float-modal-box">
+            <div class="fm-header"><div class="flex-1"></div><button class="fm-close" onclick="closeFloatModal()">✕</button></div>
+            <div class="fm-body" id="float-modal-body"></div>
+        </div>
+    </div>
+
+    <!-- MODAL CONFIRMAR -->
+    <div id="mod-c" class="modal-bg" onclick="if(event.target===this)closeMod()"><div class="modal-box bg-white rounded-2xl p-6 max-w-[300px] w-full mx-4 text-center shadow-2xl border border-black/10"><span class="text-3xl block mb-2">⚠️</span><p id="mod-t" class="font-display tx-dark mb-4 text-base"></p><div class="flex gap-2"><button onclick="closeMod()" class="flex-1 py-2.5 rounded-xl border border-black/15 tx-muted font-display font-semibold hover:bg-black/5 transition-colors text-base">Cancelar</button><button id="mod-b" onclick="doPending()" class="flex-1 py-2.5 rounded-xl bg-red-600 text-white font-display font-semibold hover:bg-red-700 transition-colors text-base">Eliminar</button></div></div></div>
+
+    <div id="toast" class="toast-c"><div class="bg-white border border-black/10 rounded-2xl px-5 py-3 shadow-xl flex items-center gap-3"><span id="t-ico" class="text-xl">✅</span><div><p id="t-tit" class="font-display font-bold tx-dark text-sm"></p><p id="t-msg" class="tx-muted text-sm font-elegant"></p></div></div></div>
+
+    <script>
+        const AU='admin',AP='admin';
+        let auth=false,curF='yes',cc=0,pending=null,fxLock=false;
+
+        function gd(){try{return JSON.parse(localStorage.getItem('xv')||'[]')}catch(e){return[]}}
+        function sd(d){localStorage.setItem('xv',JSON.stringify(d));upAll()}
+        function getPhotos(){try{return JSON.parse(localStorage.getItem('xv_photos')||'[]')}catch(e){return[]}}
+        function setPhotos(p){localStorage.setItem('xv_photos',JSON.stringify(p));renderPhotos();renderGallery()}
+        function getMainPhoto(){return localStorage.getItem('xv_main_photo')||''}
+        function setMainPhotoData(data){localStorage.setItem('xv_main_photo',data);renderMainPhoto();applyPhotoBg()}
+        function delMainPhotoData(){localStorage.removeItem('xv_main_photo');renderMainPhoto();applyPhotoBg()}
+        function getVideoData(){return localStorage.getItem('xv_video')||''}
+        function setVideoData(data){localStorage.setItem('xv_video',data);renderVideoAdmin();renderHomeVideo()}
+        function deleteVideoData(){localStorage.removeItem('xv_video');renderVideoAdmin();renderHomeVideo()}
+
+        function applyPhotoBg(){const s=getMainPhoto(),b=document.getElementById('full-photo-bg'),i=document.getElementById('full-photo-img'),m=document.getElementById('main-screen');if(s){i.src=s;b.classList.add('active');m.classList.add('has-photo')}else{b.classList.remove('active');m.classList.remove('has-photo')}}
+        function renderMainPhoto(){const s=getMainPhoto(),i=document.getElementById('main-photo-img'),p=document.getElementById('main-photo-placeholder'),h=document.getElementById('main-photo-hint'),d=document.getElementById('main-photo-del');if(s){i.src=s;i.classList.remove('hidden');p.style.display='none';h.style.display='flex';d.style.display='flex'}else{i.classList.add('hidden');i.src='';p.style.display='flex';h.style.display='none';d.style.display='none'}}
+        function handleMainPhotoUpload(e){const f=e.target.files[0];if(!f)return;if(f.size>15*1024*1024){toast('⚠️','Muy grande','Menor a 15MB');e.target.value='';return}const r=new FileReader();r.onload=function(ev){const img=new Image();img.onload=function(){const c=document.createElement('canvas');const mx=1400;let w=img.width,h=img.height;if(w>mx){h=Math.round(h*(mx/w));w=mx}c.width=Math.max(1,w);c.height=Math.max(1,h);c.getContext('2d').drawImage(img,0,0,w,h);setMainPhotoData(c.toDataURL('image/jpeg',0.88));toast('📸','Foto actualizada','Fondo completo')};img.src=ev.target.result};r.readAsDataURL(f);e.target.value=''}
+        function deleteMainPhoto(){delMainPhotoData();toast('🗑️','Foto eliminada','')}
+
+        function renderHomeVideo(){
+            const data=getVideoData();
+            const video=document.getElementById('home-video');
+            const ph=document.getElementById('video-placeholder');
+            const card=document.getElementById('video-card-home');
+            if(data){
+                video.src=data;video.play().catch(()=>{});
+                ph.style.display='none';
+                card.style.display='block';
             } else {
-                div.innerHTML = `
-                    <div class="alert alert-warning">
-                        <i class="fas fa-info-circle"></i>
-                        <span>No hay registros de asistencia para esa cédula.</span>
-                    </div>
-                `;
-            }
-
-            div.style.display = 'block';
-            cedulaInput.value = ''; // limpiar campo después de consulta
-        }
-
-        // --- Funciones del administrador ---
-        function agregarProveedor() {
-            if (!esAdmin) {
-                showNotification('No tiene permisos para realizar esta acción', 'error');
-                return;
-            }
-            
-            const cedula = document.getElementById('nuevoCedula').value.trim();
-            const nombres = document.getElementById('nuevoNombre').value.trim();
-            const apellidos = document.getElementById('nuevoApellido').value.trim();
-            const empresa = document.getElementById('nuevaEmpresa').value.trim();
-            const autorizado = document.getElementById('nuevoEstado').value === "true";
-
-            if (!cedula || !nombres || !apellidos || !empresa) {
-                showNotification('Debe completar todos los campos', 'error');
-                return;
-            }
-
-            // Verificar si ya existe un proveedor con esa cédula
-            if (proveedores.find(p => p.cedula === cedula)) {
-                showNotification('Ya existe un proveedor con esa cédula', 'error');
-                return;
-            }
-
-            proveedores.push({ cedula, nombres, apellidos, empresa, autorizado });
-            showNotification('Proveedor agregado correctamente', 'success');
-            updateStats();
-            
-            // Limpiar formulario
-            document.getElementById('nuevoCedula').value = '';
-            document.getElementById('nuevoNombre').value = '';
-            document.getElementById('nuevoApellido').value = '';
-            document.getElementById('nuevaEmpresa').value = '';
-            document.getElementById('nuevoEstado').value = 'true';
-        }
-
-        function mostrarListaProveedores() {
-            const contenedorAutorizados = document.getElementById('listaProveedoresAutorizados');
-            const contenedorNoAutorizados = document.getElementById('listaProveedoresNoAutorizados');
-            
-            // Separar proveedores por estado
-            const autorizados = proveedores.filter(p => p.autorizado);
-            const noAutorizados = proveedores.filter(p => !p.autorizado);
-            
-            // Mostrar proveedores autorizados
-            if (autorizados.length === 0) {
-                contenedorAutorizados.innerHTML = `
-                    <div class="alert alert-warning">
-                        <i class="fas fa-info-circle"></i>
-                        <span>No hay proveedores autorizados registrados</span>
-                    </div>
-                `;
-            } else {
-                contenedorAutorizados.innerHTML = autorizados.map(p => `
-                    <div class="provider-item">
-                        <div class="provider-info">
-                            <strong>${p.nombres} ${p.apellidos}</strong> (${p.empresa})
-                            <br>
-                            <small><i class="fas fa-id-card"></i> ${p.cedula}</small>
-                        </div>
-                        <div class="provider-status status-authorized">
-                            Autorizado
-                        </div>
-                    </div>
-                `).join('');
-            }
-            
-            // Mostrar proveedores no autorizados
-            if (noAutorizados.length === 0) {
-                contenedorNoAutorizados.innerHTML = `
-                    <div class="alert alert-warning">
-                        <i class="fas fa-info-circle"></i>
-                        <span>No hay proveedores no autorizados registrados</span>
-                    </div>
-                `;
-            } else {
-                contenedorNoAutorizados.innerHTML = noAutorizados.map(p => `
-                    <div class="provider-item">
-                        <div class="provider-info">
-                            <strong>${p.nombres} ${p.apellidos}</strong> (${p.empresa})
-                            <br>
-                            <small><i class="fas fa-id-card"></i> ${p.cedula}</small>
-                        </div>
-                        <div class="provider-status status-unauthorized">
-                            No autorizado
-                        </div>
-                    </div>
-                `).join('');
+                video.src='';video.load();
+                ph.style.display='flex';
+                card.style.display='block';
             }
         }
 
-        function mostrarHistorialAsistencias() {
-            const contenedor = document.getElementById('historialAsistencias');
-            
-            if (asistencias.length === 0) {
-                contenedor.innerHTML = `
-                    <div class="alert alert-warning">
-                        <i class="fas fa-info-circle"></i>
-                        <span>No hay registros de asistencia</span>
-                    </div>
-                `;
-                return;
-            }
-            
-            // Ordenar asistencias por fecha (más reciente primero)
-            const asistenciasOrdenadas = [...asistencias].sort((a, b) => {
-                return new Date(b.fecha) - new Date(a.fecha);
-            });
-            
-            contenedor.innerHTML = asistenciasOrdenadas.map(r => {
-                const proveedor = proveedores.find(p => p.cedula === r.cedula);
-                const nombreProveedor = proveedor ? 
-                    `${proveedor.nombres} ${proveedor.apellidos}` : 
-                    'Proveedor no encontrado';
-                
-                return `
-                    <div class="provider-item">
-                        <div class="provider-info">
-                            <strong>${nombreProveedor}</strong> (${r.cedula})
-                            <br>
-                            <small>
-                                <i class="fas fa-building"></i> ${r.planta} - 
-                                <i class="fas fa-calendar"></i> ${r.fecha}
-                            </small>
-                        </div>
-                    </div>
-                `;
-            }).join('');
+        function renderVideoAdmin(){
+            const data=getVideoData(),preview=document.getElementById('video-admin-preview'),ph=document.getElementById('video-admin-placeholder'),hint=document.getElementById('video-admin-hint'),delBtn=document.getElementById('del-video-btn');
+            if(data){preview.src=data;preview.classList.remove('hidden');preview.play().catch(()=>{});ph.style.display='none';hint.style.display='flex';delBtn.style.display='block'}
+            else{preview.classList.add('hidden');preview.src='';ph.style.display='flex';hint.style.display='none';delBtn.style.display='none'}
         }
 
-        function updateStats() {
-            // Actualizar estadísticas
-            document.getElementById('totalProviders').textContent = proveedores.length;
-            document.getElementById('authorizedProviders').textContent = 
-                proveedores.filter(p => p.autorizado).length;
-            document.getElementById('unauthorizedProviders').textContent = 
-                proveedores.filter(p => !p.autorizado).length;
-            
-            // Calcular visitas de hoy
-            const today = new Date().toLocaleDateString();
-            const todayVisits = asistencias.filter(a => 
-                new Date(a.fecha).toLocaleDateString() === today
-            ).length;
-            
-            document.getElementById('todayVisits').textContent = todayVisits;
+        function handleVideoUpload(e){
+            const f=e.target.files[0];if(!f)return;
+            if(f.size>80*1024*1024){toast('⚠️','Muy grande','Menor a 80MB');e.target.value='';return}
+            const r=new FileReader();
+            r.onload=function(ev){setVideoData(ev.target.result);toast('🎬','Video subido','Se reproduce en loop automatico')};
+            r.readAsDataURL(f);e.target.value='';
         }
 
-        function showNotification(message, type) {
-            const notification = document.getElementById('notification');
-            const notificationMessage = document.getElementById('notificationMessage');
-            const icon = notification.querySelector('i');
-            
-            // Configurar notificación
-            notificationMessage.textContent = message;
-            notification.className = `notification ${type}`;
-            
-            // Configurar icono según tipo
-            if (type === 'success') {
-                icon.className = 'fas fa-check-circle';
-            } else if (type === 'error') {
-                icon.className = 'fas fa-exclamation-circle';
-            }
-            
-            // Mostrar notificación
-            notification.style.display = 'flex';
-            
-            // Ocultar después de 3 segundos
-            setTimeout(() => {
-                notification.style.display = 'none';
-            }, 3000);
+        function deleteVideo(){pending=()=>{deleteVideoData();toast('🗑️','Video eliminado','')};document.getElementById('mod-t').textContent='Eliminar el video?';document.getElementById('mod-c').classList.add('on')}
+
+        function openFloatModal(t){const b=document.getElementById('float-modal-body'),m=document.getElementById('float-modal');
+            if(t==='location'){b.innerHTML=`<div class="text-center"><div class="flex items-center justify-center gap-2 mb-4"><div class="h-px w-12 bg-gradient-to-r from-transparent to-amber-400/60"></div><span class="text-amber-500 text-base twinkle">✦</span><div class="h-px w-12 bg-gradient-to-l from-transparent to-amber-400/60"></div></div><span class="text-5xl block mb-3">📍</span><p class="font-display text-xl tx-dark font-bold mb-1">Terminal Terrestre</p><p class="font-elegant text-base tx-muted mb-4">Lugar del evento</p><a href="https://maps.app.goo.gl/DPAvr3Pw6BaHSzAQ8" target="_blank" class="btn-g inline-flex items-center gap-2 px-6 py-3 text-white font-display font-semibold text-base"><span>Abrir en Google Maps</span><span>🗺️</span></a><p class="text-sm tx-muted font-elegant mt-3">Sabado 17 de Octubre, 7:00 PM</p></div>`;m.classList.add('on')}
+            else if(t==='suenos'){closeFloatModal();setTimeout(()=>triggerSpecialFX('✨','🌟','💫','⭐','Sueños'),200)}
+            else if(t==='magia'){closeFloatModal();setTimeout(()=>triggerSpecialFX('🦋','🔮','🎪','🌈','Magia'),200)}
+            else if(t==='amor'){closeFloatModal();setTimeout(()=>triggerSpecialFX('💖','💕','💗','❤️','Amor'),200)}
         }
+        function closeFloatModal(){document.getElementById('float-modal').classList.remove('on');document.getElementById('float-modal-body').innerHTML=''}
+
+        function makePetals(){const c=document.getElementById('petals'),cl=['#fda4af','#fbcfe8','#fecdd3','#f9a8d4','#fce7f3'];for(let i=0;i<12;i++){const p=document.createElement('div');p.className='petal';const s=6+Math.random()*10;p.style.cssText=`width:${s}px;height:${s}px;left:${Math.random()*100}%;background:${cl[i%cl.length]};animation:petal-fall ${8+Math.random()*8}s linear infinite;animation-delay:${Math.random()*10}s;opacity:${.2+Math.random()*.3}`;c.appendChild(p)}}
+        function openEnv(){document.getElementById('env-seal').classList.add('go');setTimeout(()=>document.getElementById('env-flap').classList.add('go'),300);setTimeout(()=>{document.getElementById('env-scene').classList.add('bye');setTimeout(()=>{document.getElementById('env-screen').style.display='none';document.getElementById('main-screen').classList.add('show');applyPhotoBg();renderHomeVideo();burstConfetti()},400)},700)}
+        function burstConfetti(){const cl=['#ec4899','#f472b6','#fbbf24','#f59e0b','#a855f7','#06b6d4','#f43f5e','#10b981'];for(let i=0;i<40;i++){const c=document.createElement('div');c.className='confetti';const s=4+Math.random()*6;c.style.cssText=`width:${s}px;height:${s*1.4}px;left:${Math.random()*100}%;background:${cl[i%cl.length]};border-radius:${Math.random()>.5?'50%':'2px'};animation:confetti-fall ${2+Math.random()*3}s linear forwards;animation-delay:${Math.random()*.8}s`;document.body.appendChild(c);setTimeout(()=>c.remove(),5000)}}
+
+        function swTab(t){document.querySelectorAll('.tp').forEach(p=>p.classList.add('hidden'));document.querySelectorAll('.tab-b').forEach(b=>b.classList.remove('active'));const p=document.getElementById('p-'+t),b=document.getElementById('t-'+t);if(p){p.classList.remove('hidden');const inner=p.querySelector('div');if(inner){inner.classList.remove('fade-up');void p.offsetWidth;inner.classList.add('fade-up')}}if(b)b.classList.add('active');if(t==='home')setTimeout(renderHomeVideo,100)}
+        function upAll(){const d=gd(),y=d.filter(g=>g.att==='yes'),n=d.filter(g=>g.att==='no');let p=0;y.forEach(g=>{p+=1+(g.comp?g.comp.length:0)});document.getElementById('c-yes').textContent=y.length;document.getElementById('c-no').textContent=n.length;document.getElementById('c-total').textContent=d.length;document.getElementById('nav-count').textContent=p;document.getElementById('a-yes').textContent=y.length;document.getElementById('a-no').textContent=n.length;document.getElementById('a-ppl').textContent=p;if(auth)renderGuests()}
+        function togComp(){document.getElementById('comp-sec').classList.toggle('hidden',!document.getElementById('att-y').checked)}
+        function addComp(){const l=document.getElementById('comp-list');if(l.children.length>=8){toast('⚠️','Limite','Maximo 8');return}const d=document.createElement('div');d.className='flex gap-2 items-center fade-up';d.innerHTML=`<input type="text" placeholder="Nombre del acompanante" class="inp flex-1 px-3 py-2.5 text-base"><button type="button" onclick="this.parentElement.remove()" class="text-red-500 hover:text-red-700 text-lg transition-colors flex-shrink-0 w-9 h-9 flex items-center justify-center">✕</button>`;l.appendChild(d)}
+        function submitRSVP(e){e.preventDefault();const nm=document.getElementById('f-name').value.trim(),at=document.querySelector('input[name="att"]:checked'),ms=document.getElementById('f-msg').value.trim();if(!nm){toast('⚠️','Falta nombre','');return false}if(!at){toast('⚠️','Selecciona','');return false}const cp=[];if(at.value==='yes')document.querySelectorAll('#comp-list input').forEach(i=>{const v=i.value.trim();if(v)cp.push(v)});const d=gd(),ex=d.findIndex(g=>g.name.toLowerCase()===nm.toLowerCase()),en={name:nm,att:at.value,comp:cp,msg:ms,time:new Date().toLocaleString('es-MX')};if(ex>=0){d[ex]=en;toast('✅','Actualizado','')}else{d.push(en);toast('🎉','Confirmado','Gracias '+nm)}sd(d);document.getElementById('rsvp-form').reset();document.getElementById('comp-sec').classList.add('hidden');document.getElementById('comp-list').innerHTML='';return false}
+        function doLogin(e){e.preventDefault();const u=document.getElementById('l-user').value.trim(),p=document.getElementById('l-pass').value;if(u===AU&&p===AP){auth=true;document.getElementById('adm-out').classList.add('hidden');document.getElementById('adm-in').classList.remove('hidden');renderPhotos();renderGuests();renderVideoAdmin();upAll();toast('🔑','Bienvenido','')}else{toast('❌','Incorrecto','')}return false}
+        function doOut(){auth=false;document.getElementById('adm-in').classList.add('hidden');document.getElementById('adm-out').classList.remove('hidden');document.getElementById('l-user').value='';document.getElementById('l-pass').value='';toast('👋','Sesion cerrada','')}
+        function setF(f){curF=f;['yes','no','all'].forEach(k=>{const b=document.getElementById('f-'+k);if(k===f){if(k==='yes')b.className='text-sm px-3 py-1.5 rounded-full bg-green-100 text-green-800 border border-green-200 font-display font-semibold transition-all';else if(k==='no')b.className='text-sm px-3 py-1.5 rounded-full bg-red-100 text-red-700 border border-red-200 font-display font-semibold transition-all';else b.className='text-sm px-3 py-1.5 rounded-full bg-pink-100 tx-dark border border-pink-200 font-display font-semibold transition-all'}else{b.className='text-sm px-3 py-1.5 rounded-full bg-white/60 tx-muted border border-black/10 font-display font-semibold transition-all'}});renderGuests()}
+        function renderGuests(){const l=document.getElementById('g-list');let d=gd();if(curF!=='all')d=d.filter(g=>g.att===curF);if(!d.length){l.innerHTML=`<div class="text-center py-8"><p class="tx-muted font-elegant text-base">Sin registros</p></div>`;return}l.innerHTML=d.map((g,i)=>{const y=g.att==='yes',p=1+(g.comp?g.comp.length:0);return`<div class="g-card bg-white/70 backdrop-blur-sm p-3"><div class="flex items-start justify-between"><div class="flex-1 min-w-0"><div class="flex items-center gap-2 mb-1"><span class="text-base">${y?'✅':'❌'}</span><p class="font-display font-bold text-base tx-dark truncate">${esc(g.name)}</p></div>${g.comp&&g.comp.length?`<div class="ml-7 text-sm tx-muted font-elegant">${g.comp.map(c=>esc(c)).join(', ')}</div>`:''}${g.msg?`<div class="ml-7 text-sm tx-sub font-elegant italic mt-0.5">"${esc(g.msg)}"</div>`:''}<div class="ml-7 text-xs tx-muted font-elegant mt-1">${g.time||''} · ${p} persona${p>1?'s':''}</div></div><button onclick="delGuest(${i})" class="text-red-400 hover:text-red-600 text-sm transition-colors flex-shrink-0 ml-2 mt-1">✕</button></div></div>`}).join('')}
+        function delGuest(i){const d=gd();let f=d;if(curF!=='all')f=d.filter(g=>g.att===curF);const t=f[i];if(!t)return;const ri=d.findIndex(g=>g.name===t.name&&g.time===t.time);if(ri<0)return;pending=()=>{d.splice(ri,1);sd(d);toast('🗑️','Eliminado','')};document.getElementById('mod-t').textContent=`Eliminar a "${t.name}"?`;document.getElementById('mod-c').classList.add('on')}
+        function clrAll(){if(!gd().length)return;pending=()=>{sd([]);toast('🗑️','Todo borrado','')};document.getElementById('mod-t').textContent='Eliminar TODOS los registros?';document.getElementById('mod-c').classList.add('on')}
+        function closeMod(){document.getElementById('mod-c').classList.remove('on');pending=null}
+        function doPending(){if(pending){const fn=pending;closeMod();fn()}}
+        function renderPhotos(){const ph=getPhotos(),sl=document.getElementById('photo-slots');document.getElementById('photo-count').textContent=ph.length+'/5';sl.innerHTML='';for(let i=0;i<5;i++){const d=document.createElement('div');d.className='photo-slot';if(ph[i]){d.innerHTML=`<img src="${ph[i]}" alt="Foto"><button class="del-btn" onclick="event.stopPropagation();delPhoto(${i})">✕</button>`}else{d.innerHTML=`<div style="display:flex;align-items:center;justify-content:center;height:100%;color:rgba(0,0,0,.2);font-size:1.4rem">+</div>`;d.onclick=()=>document.getElementById('photo-input').click()}sl.appendChild(d)}}
+        function handlePhotoUpload(e){const f=e.target.files[0];if(!f)return;const ph=getPhotos();if(ph.length>=5){toast('⚠️','Limite','Maximo 5');e.target.value='';return}const r=new FileReader();r.onload=function(ev){const img=new Image();img.onload=function(){const c=document.createElement('canvas');const mx=600;let w=img.width,h=img.height;if(w>mx){h=Math.round(h*(mx/w));w=mx}c.width=Math.max(1,w);c.height=Math.max(1,h);c.getContext('2d').drawImage(img,0,0,w,h);ph.push(c.toDataURL('image/jpeg',0.75));setPhotos(ph);toast('📸','Foto subida','')};img.src=ev.target.result};r.readAsDataURL(f);e.target.value=''}
+        function delPhoto(i){const ph=getPhotos();ph.splice(i,1);setPhotos(ph);toast('🗑️','Foto eliminada','')}
+        function renderGallery(){const ph=getPhotos(),w=document.getElementById('home-gallery'),g=document.getElementById('gallery-grid');if(!ph.length){w.classList.add('hidden');return}w.classList.remove('hidden');g.innerHTML=ph.map(p=>`<div class="rounded-2xl overflow-hidden shadow-sm border border-black/10" style="aspect-ratio:1"><img src="${p}" alt="Foto" class="w-full h-full object-cover"></div>`).join('')}
+        function expCSV(){const d=gd();if(!d.length){toast('⚠️','Sin datos','');return}let c='Nombre,Asistencia,Acompanantes,Mensaje,Fecha\n';d.forEach(g=>{c+=`"${g.name}","${g.att==='yes'?'Si':'No'}","${(g.comp||[]).join('; ')}","${g.msg||''}","${g.time||''}"\n`});const b=new Blob(['\ufeff'+c],{type:'text/csv;charset=utf-8;'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='xv_confirmaciones.csv';a.click();toast('📥','Descargado','')}
+        let tt=null;function toast(i,t,m){const e=document.getElementById('toast');document.getElementById('t-ico').textContent=i;document.getElementById('t-tit').textContent=t;document.getElementById('t-msg').textContent=m;e.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>e.classList.remove('show'),3000)}
+        function esc(s){const d=document.createElement('div');d.textContent=s;return d.innerHTML}
+
+        // ===== NUEVA FUNCIÓN: LEER EL NOMBRE DEL INVITADO DE LA URL =====
+        function loadGuestName() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const guestName = urlParams.get('invitado'); // Busca ?invitado=Nombre
+            
+            if (guestName) {
+                // Decodifica el nombre por si tiene caracteres especiales (%20, etc.)
+                const decodedName = decodeURIComponent(guestName);
+                document.getElementById('guest-name-display').textContent = decodedName;
+                document.getElementById('guest-greeting-box').classList.remove('hidden');
+            }
+        }
+
+        function triggerSpecialFX(e1,e2,e3,e4,label){if(fxLock)return;fxLock=true;const allE=[e1,e2,e3,e4];const fl=document.createElement('div');fl.className='fx-flash';fl.style.background='radial-gradient(circle,rgba(255,255,255,.95),rgba(252,231,243,.6))';document.body.appendChild(fl);setTimeout(()=>fl.remove(),800);const rc=['rgba(236,72,153,0.25)','rgba(251,191,36,0.2)','rgba(244,114,182,0.15)'];for(let i=0;i<3;i++){setTimeout(()=>{const r=document.createElement('div');r.className='fx-ring';r.style.border='3px solid '+rc[i];r.style.animationDuration=(0.7+i*0.2)+'s';document.body.appendChild(r);setTimeout(()=>r.remove(),1200)},i*120)}const ms=document.getElementById('main-screen');ms.classList.add('shake-fx','zoom-fx');setTimeout(()=>ms.classList.remove('shake-fx','zoom-fx'),600);const ct=document.createElement('div');ct.className='fx-center';ct.textContent=e1;document.body.appendChild(ct);setTimeout(()=>ct.remove(),1600);for(let i=0;i<20;i++){setTimeout(()=>{const em=document.createElement('div');em.className='fx-emoji';em.textContent=allE[Math.floor(Math.random()*allE.length)];const a=(Math.PI*2/20)*i+(Math.random()-.5)*.5;const d=100+Math.random()*220;const dr=.8+Math.random()*.6;em.style.setProperty('--ex',Math.cos(a)*d+'px');em.style.setProperty('--ey',(Math.sin(a)*d-50)+'px');em.style.setProperty('--er',(Math.random()*720-360)+'deg');em.style.setProperty('--ed',dr+'s');em.style.fontSize=(1.2+Math.random()*1.8)+'rem';document.body.appendChild(em);setTimeout(()=>em.remove(),(dr+.1)*1000)},80+Math.random()*200)}if(label==='Amor'){const h=['💖','💕','💗','❤️','♥️','💘'];for(let i=0;i<16;i++){setTimeout(()=>{const e=document.createElement('div');e.className='fx-heart';e.textContent=h[Math.floor(Math.random()*h.length)];const a=Math.random()*Math.PI*2;const d=120+Math.random()*280;e.style.setProperty('--hx','calc(-50% + '+Math.cos(a)*d+'px)');e.style.setProperty('--hy','calc(-50% + '+(Math.sin(a)*d-80)+'px)');e.style.setProperty('--hr',(Math.random()*360-180)+'deg');document.body.appendChild(e);setTimeout(()=>e.remove(),2800)},100+Math.random()*300)}}const sc=['#ec4899','#fbbf24','#a855f7','#06b6d4','#f43f5e'];for(let i=0;i<15;i++){setTimeout(()=>{const s=document.createElement('div');s.className='fx-sparkle';s.style.background=sc[i%sc.length];s.style.left=(20+Math.random()*60)+'%';s.style.top=(20+Math.random()*60)+'%';const z=6+Math.random()*8;s.style.width=z+'px';s.style.height=z+'px';document.body.appendChild(s);setTimeout(()=>s.remove(),1000)},200+Math.random()*400)}if(label==='Sueños'){for(let i=0;i<6;i++){setTimeout(()=>{const s=document.createElement('div');s.className='fx-streak';const c=['#fbbf24','#ec4899','#f472b6','#a855f7'];s.style.background='linear-gradient(90deg,transparent,'+c[i%c.length]+',transparent)';s.style.top=(30+Math.random()*40)+'%';s.style.width=(100+Math.random()*200)+'px';s.style.setProperty('--sr',(Math.random()*20-10)+'deg');s.style.setProperty('--sd',(0.6+Math.random()*.5)+'s');document.body.appendChild(s);setTimeout(()=>s.remove(),1500)},150+i*80)}}if(label==='Magia'){const mc=['#a855f7','#06b6d4','#ec4899','#fbbf24','#10b981'];for(let i=0;i<25;i++){setTimeout(()=>{const p=document.createElement('div');p.className='fx-particle';const s=4+Math.random()*6;p.style.width=s+'px';p.style.height=s+'px';p.style.background=mc[i%mc.length];p.style.left=(10+Math.random()*80)+'%';p.style.top=(10+Math.random()*80)+'%';const tx=(Math.random()-.5)*200;const ty=(Math.random()-.5)*200-50;p.animate([{transform:'translate(0,0) scale(1)',opacity:1},{transform:`translate(${tx}px,${ty}px) scale(0)`,opacity:0}],{duration:600+Math.random()*500,easing:'ease-out',fill:'forwards'});document.body.appendChild(p);setTimeout(()=>p.remove(),1200)},100+Math.random()*300)}}setTimeout(()=>{fxLock=false},1500)}
+
+        document.addEventListener('DOMContentLoaded',function(){
+            makePetals();
+            upAll();
+            renderPhotos();
+            renderGallery();
+            renderMainPhoto();
+            renderVideoAdmin();
+            loadGuestName(); // <--- SE LLAMA A LA NUEVA FUNCIÓN AQUÍ
+        });
     </script>
 </body>
 </html>
